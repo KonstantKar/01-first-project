@@ -29,6 +29,7 @@ let appState = {
       { id: "", navName: "Music", to: "music" },
       { id: "", navName: "Settings", to: "settings" },
       { id: "", navName: "Friends", to: "friends" },
+      { id: "", navName: "Git", to: "Git" },
     ],
   },
 };
