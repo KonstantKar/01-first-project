@@ -14,6 +14,7 @@ let appState = {
       { id: 2, message: "Hi bratischka" },
       { id: 3, message: "EEEE TOHH" },
     ],
+    newMessageText: "Введите сообщение",
   },
   profile: {
     postData: [
@@ -22,6 +23,7 @@ let appState = {
       { id: 3, message: "Yop,Yan", likes: "20" },
       { id: 4, message: "LMAO KEK", likes: "20" },
     ],
+    newPostText: "Текст поста",
   },
   sideBar: {
     navBarData: [
@@ -36,13 +38,35 @@ let appState = {
   },
 };
 
-export let addPost = (postMessage) => {
+export let addPost = () => {
   let newPost = {
     id: 5,
-    message: postMessage,
+    message: appState.profile.newPostText,
     likes: 0,
   };
   appState.profile.postData.push(newPost);
+  appState.profile.newPostText = "";
   rerenderEntireTree(appState);
 };
+
+export let updateNewPostChange = (newText) => {
+  appState.profile.newPostText = newText;
+  rerenderEntireTree(appState);
+};
+
+export let addNewMessage = () => {
+  let newMessage = {
+    id: 4,
+    message: appState.dialogs.newMessageText,
+  };
+  appState.dialogs.messageData.push(newMessage);
+  appState.dialogs.newMessageText = "";
+  rerenderEntireTree(appState);
+};
+
+export let updateNewMessageChange = (newText) => {
+  appState.dialogs.newMessageText = newText;
+  rerenderEntireTree(appState);
+};
+
 export default appState;
