@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from "../render";
+
 let appState = {
   dialogs: {
     dialogsData: [
@@ -41,5 +43,6 @@ export let addPost = (postMessage) => {
     likes: 0,
   };
   appState.profile.postData.push(newPost);
+  rerenderEntireTree(appState);
 };
 export default appState;
