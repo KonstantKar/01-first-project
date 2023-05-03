@@ -34,4 +34,12 @@ let appState = {
   },
 };
 
+export let addPost = (postMessage) => {
+  let newPost = {
+    id: 5,
+    message: postMessage,
+    likes: 0,
+  };
+  appState.profile.postData.push(newPost);
+};
 export default appState;

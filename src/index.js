@@ -4,10 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import appState from "./Redux/appState";
+import { addPost } from "./Redux/appState";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App appState={appState} />
+    <App appState={appState} addPost={addPost} />
   </React.StrictMode>
 );
 
