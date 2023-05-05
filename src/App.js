@@ -14,14 +14,14 @@ const App = (props) => {
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
-        <Navbar state={props.appState.sideBar} />
+        <Navbar state={props.state.sideBar} />
         <div className="app-wrapper-content">
           <Routes>
             <Route
               path="/profile"
               element={
                 <Profile
-                  state={props.appState.profile}
+                  state={props.state.profile}
                   addPost={props.addPost}
                   updateNewPostChange={props.updateNewPostChange}
                 />
@@ -31,7 +31,7 @@ const App = (props) => {
               path="/dialogs"
               element={
                 <Dialogs
-                  state={props.appState.dialogs}
+                  state={props.state.dialogs}
                   addNewMessage={props.addNewMessage}
                   updateNewMessageChange={props.updateNewMessageChange}
                 />
