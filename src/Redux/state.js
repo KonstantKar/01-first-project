@@ -58,7 +58,7 @@ let store = {
       this._state.profile.postData.push(newPost);
       this._state.profile.newPostText = "";
       this._rerenderEntireTree(this._state);
-    } else if (action.type === "ADD-NEW-POST-TEXT") {
+    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
       this._state.profile.newPostText = action.newText;
       this._rerenderEntireTree(this._state);
     } else if (action.type === "ADD-MESSAGE") {
@@ -69,11 +69,36 @@ let store = {
       this._state.dialogs.messageData.push(newMessage);
       this._state.dialogs.newMessageText = "";
       this._rerenderEntireTree(this._state);
-    } else if (action.type === "ADD-NEW-MESSAGE-TEXT") {
+    } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
       this._state.dialogs.newMessageText = action.newText;
       this._rerenderEntireTree(this._state);
     }
   },
 };
 
+export const addPostActionCreator = () => {
+  return {
+    type: "ADD-POST",
+  };
+};
+
+export const updateNewPostTextActionCreator = (text) => {
+  return {
+    type: "UPDATE-NEW-POST-TEXT",
+    newText: text,
+  };
+};
+
+export const addNewMessageTextActionCreator = (text) => {
+  return {
+    type: "UPDATE-NEW-MESSAGE-TEXT",
+    newText: text,
+  };
+};
+
+export const addMessageActionCreator = () => {
+  return {
+    type: "ADD-MESSAGE",
+  };
+};
 export default store;
