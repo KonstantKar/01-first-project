@@ -9,12 +9,12 @@ const MyPosts = (props) => {
   let newPostElement = React.createRef();
 
   let addPost = () => {
-    props.addPost();
+    props.dispatch({ type: "ADD-POST" });
   };
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    props.updateNewPostChange(text);
+    props.dispatch({ type: "ADD-NEW-POST-TEXT", newText: text });
   };
   return (
     <div className={s.postsBlock}>

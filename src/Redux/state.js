@@ -39,42 +39,40 @@ let store = {
   getState() {
     return this._state;
   },
-  _rerenderEntireTree() {
-    console.log("state changed");
-  },
-  addPost() {
-    let newPost = {
-      id: 5,
-      message: this._state.profile.newPostText,
-      likes: 0,
-    };
-    this._state.profile.postData.push(newPost);
-    this._state.profile.newPostText = "";
-    this._rerenderEntireTree(this._state);
-  },
-
-  updateNewPostChange(newText) {
-    this._state.profile.newPostText = newText;
-    this._rerenderEntireTree(this._state);
-  },
-
-  addNewMessage() {
-    let newMessage = {
-      id: 4,
-      message: this._state.dialogs.newMessageText,
-    };
-    this._state.dialogs.messageData.push(newMessage);
-    this._state.dialogs.newMessageText = "";
-    this._rerenderEntireTree(this._state);
-  },
-
-  updateNewMessageChange(newText) {
-    this._state.dialogs.newMessageText = newText;
-    this._rerenderEntireTree(this._state);
-  },
 
   subscribe(observer) {
     this._rerenderEntireTree = observer;
+  },
+
+  _rerenderEntireTree() {
+    console.log("state changed");
+  },
+
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      let newPost = {
+        id: 5,
+        message: this._state.profile.newPostText,
+        likes: 0,
+      };
+      this._state.profile.postData.push(newPost);
+      this._state.profile.newPostText = "";
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === "ADD-NEW-POST-TEXT") {
+      this._state.profile.newPostText = action.newText;
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === "ADD-MESSAGE") {
+      let newMessage = {
+        id: 4,
+        message: this._state.dialogs.newMessageText,
+      };
+      this._state.dialogs.messageData.push(newMessage);
+      this._state.dialogs.newMessageText = "";
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === "ADD-NEW-MESSAGE-TEXT") {
+      this._state.dialogs.newMessageText = action.newText;
+      this._rerenderEntireTree(this._state);
+    }
   },
 };
 
