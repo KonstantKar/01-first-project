@@ -39,7 +39,7 @@ const Dialogs = (props) => {
             value={props.state.newMessageText}
           ></textarea>
         </div>
-        <button onClick={addMessage}>add message</button>
+        <button onClick={addMessage}>send message</button>
       </div>
     </div>
   );
