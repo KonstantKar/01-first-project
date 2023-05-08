@@ -1,7 +1,6 @@
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_MESSSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+import dialogsReducer from "./dialogsReducer";
+import profileReducer from "./profileReducer";
+import sidebarReducer from "./sidebarReducer";
 let store = {
   _state: {
     dialogs: {
@@ -53,56 +52,11 @@ let store = {
   },
 
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      let newPost = {
-        id: 5,
-        message: this._state.profile.newPostText,
-        likes: 0,
-      };
-      this._state.profile.postData.push(newPost);
-      this._state.profile.newPostText = "";
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profile.newPostText = action.newText;
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === ADD_MESSSAGE) {
-      let newMessage = {
-        id: 4,
-        message: this._state.dialogs.newMessageText,
-      };
-      this._state.dialogs.messageData.push(newMessage);
-      this._state.dialogs.newMessageText = "";
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.dialogs.newMessageText = action.newText;
-      this._rerenderEntireTree(this._state);
-    }
+    this._state.profile = profileReducer(this._state.profile, action);
+    this._state.dialogs = dialogsReducer(this._state.dialogs, action);
+    this._state.sideBar = sidebarReducer(this._state.sideBar, action);
+    this._rerenderEntireTree(this._state);
   },
 };
 
-export const addPostActionCreator = () => {
-  return {
-    type: ADD_POST,
-  };
-};
-
-export const updateNewPostTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text,
-  };
-};
-
-export const addNewMessageTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text,
-  };
-};
-
-export const addMessageActionCreator = () => {
-  return {
-    type: ADD_MESSSAGE,
-  };
-};
 export default store;
