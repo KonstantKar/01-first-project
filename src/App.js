@@ -1,39 +1,26 @@
 import React from "react";
 import "./App.css";
 import Header from "./Components/Header/Header";
-import Navbar from "./Components/Navbar/Navbar";
+import NavbarContainer from "./Components/Navbar/NavbarContainer";
 import Profile from "./Components/Profile/Profile";
-import Dialogs from "./Components/Dialogs/Dialogs";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 const App = (props) => {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
-        <Navbar state={props.state.sidebar} />
+        <NavbarContainer store={props.store} />
         <div className="app-wrapper-content">
           <Routes>
-            <Route
-              path="/profile"
-              element={
-                <Profile
-                  state={props.state.profile}
-                  dispatch={props.dispatch}
-                />
-              }
-            />
+            <Route path="/profile" element={<Profile store={props.store} />} />
             <Route
               path="/dialogs"
-              element={
-                <Dialogs
-                  state={props.state.dialogs}
-                  dispatch={props.dispatch}
-                />
-              }
+              element={<DialogsContainer store={props.store} />}
             />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
