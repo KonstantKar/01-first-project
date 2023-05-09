@@ -1,7 +1,7 @@
 import NavItem from "./NavComp/NavItem";
 import s from "./NavBar.module.css";
 const Navbar = (props) => {
-  let navElements = props.state.navBarData.map((el) => {
+  let navElements = props.navBarData.map((el) => {
     return <NavItem id={el.id} navName={el.navName} to={el.to} />;
   });
   return (
