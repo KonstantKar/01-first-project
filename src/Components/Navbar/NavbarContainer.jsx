@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import Navbar from "./Navbar";
-import StoreContext from "../../storeContext";
 
 const NavbarContainer = () => {
-  const store = useContext(StoreContext);
-  let state = store.getState();
-  return <Navbar navBarData={state.sidebar.navBarData} />;
+  const navBarData = useSelector((state) => state.sidebar.navBarData);
+  return <Navbar navBarData={navBarData} />;
 };
+
 export default NavbarContainer;

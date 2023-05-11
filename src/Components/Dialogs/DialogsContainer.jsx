@@ -1,31 +1,35 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Dialogs from "./Dialogs";
 import {
   addNewMessageTextActionCreator,
   addMessageActionCreator,
 } from "../../Redux/dialogsReducer";
-import StoreContext from "../../storeContext";
 
 const DialogsContainer = () => {
-  const store = useContext(StoreContext);
-  let state = store.getState();
-  let addMessage = () => {
-    store.dispatch(addMessageActionCreator());
+  const dispatch = useDispatch();
+  const dialogsData = useSelector((state) => state.dialogs.dialogsData);
+  const newMessageText = useSelector((state) => state.dialogs.newMessageText);
+  const messageData = useSelector((state) => state.dialogs.messageData);
+
+  const addMessage = () => {
+    dispatch(addMessageActionCreator());
   };
 
-  let onMessageChange = (text) => {
-    let action = addNewMessageTextActionCreator(text);
-    store.dispatch(action);
+  const onMessageChange = (text) => {
+    const action = addNewMessageTextActionCreator(text);
+    dispatch(action);
   };
 
   return (
     <Dialogs
       addMessage={addMessage}
       onMessageChange={onMessageChange}
-      dialogsData={state.dialogs.dialogsData}
-      newMessageText={state.dialogs.newMessageText}
-      messageData={state.dialogs.messageData}
+      dialogsData={dialogsData}
+      newMessageText={newMessageText}
+      messageData={messageData}
     />
   );
 };
+
 export default DialogsContainer;
