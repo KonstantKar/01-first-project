@@ -2,17 +2,19 @@ import {
   addPostActionCreator,
   updateNewPostTextActionCreator,
 } from "../../../Redux/profileReducer";
-import React from "react";
+import React, { useContext } from "react";
 import MyPosts from "./MyPosts";
-const MyPostsContainer = (props) => {
-  let state = props.store.getState();
+import StoreContext from "../../../storeContext";
+const MyPostsContainer = () => {
+  const store = useContext(StoreContext);
+  let state = store.getState();
   let addPost = () => {
-    props.store.dispatch(addPostActionCreator());
+    store.dispatch(addPostActionCreator());
   };
 
   let onPostChange = (text) => {
     let action = updateNewPostTextActionCreator(text);
-    props.store.dispatch(action);
+    store.dispatch(action);
   };
   return (
     <MyPosts
