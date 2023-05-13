@@ -1,3 +1,4 @@
+import produce from "immer";
 const ADD_MESSAGE = "ADD-MESSAGE";
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 
@@ -18,17 +19,23 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-  if (action.type === ADD_MESSAGE) {
-    let newMessage = {
-      id: 4,
-      message: state.newMessageText,
-    };
-    state.messageData.push(newMessage);
-    state.newMessageText = "";
-  } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-    state.newMessageText = action.newText;
+  switch (action.type) {
+    case ADD_MESSAGE:
+      return produce(state, (draftState) => {
+        let newMessage = {
+          id: 4,
+          message: state.newMessageText,
+        };
+        draftState.messageData.push(newMessage);
+        draftState.newMessageText = "";
+      });
+    case UPDATE_NEW_MESSAGE_TEXT:
+      return produce(state, (draftState) => {
+        draftState.newMessageText = action.newText;
+      });
+    default:
+      return state;
   }
-  return state;
 };
 
 export const addNewMessageTextActionCreator = (text) => {

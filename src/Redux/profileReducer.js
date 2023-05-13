@@ -1,3 +1,4 @@
+import produce from "immer";
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
@@ -12,18 +13,24 @@ let initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-  if (action.type === ADD_POST) {
-    let newPost = {
-      id: 5,
-      message: state.newPostText,
-      likes: 0,
-    };
-    state.postData.push(newPost);
-    state.newPostText = "";
-  } else if (action.type === UPDATE_NEW_POST_TEXT) {
-    state.newPostText = action.newText;
+  switch (action.type) {
+    case ADD_POST:
+      return produce(state, (draftState) => {
+        let newPost = {
+          id: 5,
+          message: draftState.newPostText,
+          likes: 0,
+        };
+        draftState.postData.push(newPost);
+        draftState.newPostText = "";
+      });
+    case UPDATE_NEW_POST_TEXT:
+      return produce(state, (draftState) => {
+        draftState.newPostText = action.newText;
+      });
+    default:
+      return state;
   }
-  return state;
 };
 
 export const addPostActionCreator = () => {
@@ -39,3 +46,18 @@ export const updateNewPostTextActionCreator = (text) => {
   };
 };
 export default profileReducer;
+
+/* const profileReducer = (state = initialState, action) => {
+  if (action.type === ADD_POST) {
+    let newPost = {
+      id: 5,
+      message: state.newPostText,
+      likes: 0,
+    };
+    state.postData.push(newPost);
+    state.newPostText = "";
+  } else if (action.type === UPDATE_NEW_POST_TEXT) {
+    state.newPostText = action.newText;
+  }
+  return state;
+}; */
