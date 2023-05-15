@@ -8,8 +8,9 @@ import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
 
-const App = (props) => {
+const App = () => {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -20,6 +21,7 @@ const App = (props) => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/dialogs" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
+            <Route path="/users" element={<UsersContainer />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>

@@ -3,6 +3,7 @@ let initialState = {
     { id: " ", navName: "Profile", to: "profile" },
     { id: " ", navName: "Dialogs", to: "dialogs" },
     { id: " ", navName: "News", to: "news" },
+    { id: " ", navName: "Users", to: "users" },
     { id: " ", navName: "Music", to: "music" },
     { id: " ", navName: "Settings", to: "settings" },
     { id: " ", navName: "Friends", to: "friends" },
