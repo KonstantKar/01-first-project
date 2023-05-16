@@ -1,19 +1,23 @@
 import s from "./UsersComp.module.css";
+import userPhoto from "../../../assets/images/ava.png";
 const UsersComp = (props) => {
-  let followAC = () => {
-    props.followAC(props.id);
+  let follow = () => {
+    props.follow(props.id);
   };
-  let unFollowAC = () => {
-    props.unFollowAC(props.id);
+  let unFollow = () => {
+    props.unFollow(props.id);
   };
   return (
     <div className={s.item}>
-      <img src={props.fotoURL} alt="error"></img>
+      <img
+        src={props.fotoURL != null ? props.fotoURL : userPhoto}
+        alt="error"
+      ></img>
       <div>
         {props.followed ? (
-          <button onClick={unFollowAC}>Follow</button>
+          <button onClick={unFollow}>Follow</button>
         ) : (
-          <button onClick={followAC}>Unfollow</button>
+          <button onClick={follow}>Unfollow</button>
         )}
       </div>
       <span>
@@ -23,8 +27,8 @@ const UsersComp = (props) => {
         </span>
       </span>
       <span>
-        <div>{props.location.country}</div>
-        <div>{props.location.city}</div>
+        <div>{"props.location.country"}</div>
+        <div>{"props.location.city"}</div>
       </span>
     </div>
   );
