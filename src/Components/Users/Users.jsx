@@ -1,16 +1,10 @@
-import s from "./Users.module.css";
 import React from "react";
 import UsersComp from "./UsersComp.jsx/UsersComp";
-import axios, * as others from "axios";
 
 const Users = (props) => {
-  if (props.users.length === 0) {
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
-      .then((responce) => {
-        props.setUsers(responce.data.items);
-      });
-  }
+  const getUsers = () => {
+    props.getUsers();
+  };
   let usersElements = props.users.map((el) => {
     return (
       <UsersComp
@@ -25,10 +19,13 @@ const Users = (props) => {
       />
     );
   });
+
   return (
-    <div className={s.usersBlock}>
-      <div className={s.users}>{usersElements}</div>
+    <div>
+      <button onClick={getUsers}>Показать пользователей</button>
+      <div>{usersElements}</div>
     </div>
   );
 };
+
 export default Users;
