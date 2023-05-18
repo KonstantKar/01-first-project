@@ -2,9 +2,6 @@ import React from "react";
 import UsersComp from "./UsersComp.jsx/UsersComp";
 
 const Users = (props) => {
-  const getUsers = () => {
-    props.getUsers();
-  };
   let usersElements = props.users.map((el) => {
     return (
       <UsersComp
@@ -19,10 +16,8 @@ const Users = (props) => {
       />
     );
   });
-
   return (
     <div>
-      <button onClick={getUsers}>Показать пользователей</button>
       <div>{usersElements}</div>
     </div>
   );
