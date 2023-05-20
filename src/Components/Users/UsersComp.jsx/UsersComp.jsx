@@ -27,8 +27,8 @@ const UsersComp = (props) => {
         </span>
       </span>
       <span>
-        <div>{"props.location.country"}</div>
-        <div>{"props.location.city"}</div>
+        <div>{"Страна: - "}</div>
+        <div>{"Город: -"}</div>
       </span>
     </div>
   );

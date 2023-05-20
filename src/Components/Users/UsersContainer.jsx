@@ -3,11 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { followAC, setUsersAC, unfollowAC } from "../../Redux/usersReducer";
 import Users from "./Users";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
+import s from "./UsersContainer.module.css";
 
 const UsersContainer = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
-  const [hideUsers, setHideUsers] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [pageSize, setPageSize] = useState(4); // Количество пользователей на странице
 
   const follow = (userID) => {
     dispatch(followAC(userID));
@@ -21,44 +26,48 @@ const UsersContainer = () => {
     dispatch(setUsersAC(users));
   };
 
-  const getUsers = () => {
+  const getUsers = (page) => {
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}` // на данном сервере значения page и count, однако могут быть и другие значения, смотри документацию
+      )
       .then((response) => {
         setUsers(response.data.items);
-        setHideUsers(false);
+        setTotalPages(Math.ceil(response.data.totalCount / pageSize));
       });
   };
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    getUsers(currentPage);
+  }, [currentPage]);
 
-  const handleHideUsers = () => {
-    setHideUsers(true);
-  };
-  const handleShowUsers = () => {
-    setHideUsers(false);
+  const handlePageChange = (selectedPage) => {
+    setCurrentPage(selectedPage.selected + 1);
   };
 
   return (
     <div>
-      {!hideUsers && (
-        <div>
-          <button onClick={handleHideUsers}>Скрыть пользователей</button>
-          <Users
-            follow={follow}
-            unfollow={unfollow}
-            users={users}
-            getUsers={getUsers}
-          />
-        </div>
-      )}
-      {hideUsers && (
-        <button onClick={handleShowUsers}>Показать пользователей</button>
-      )}
+      <Users
+        follow={follow}
+        unfollow={unfollow}
+        users={users}
+        getUsers={getUsers}
+      />
+      <ReactPaginate
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
+        breakLabel={"..."}
+        pageCount={totalPages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageChange}
+        containerClassName={s.pagination}
+        activeClassName={s.active}
+        previousClassName={s.previous}
+        nextClassName={s.next}
+        breakClassName={s.break}
+      />
     </div>
   );
 };
-
 export default UsersContainer;
