@@ -3,6 +3,7 @@ import produce from "immer";
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 let initialState = {
   users: [],
@@ -28,6 +29,11 @@ const usersReducer = (state = initialState, action) => {
       return produce(state, (draftState) => {
         draftState.users = action.loadUsers;
       });
+    //обработчик для обновления currentPage
+    case SET_CURRENT_PAGE:
+      return produce(state, (draftState) => {
+        draftState.currentPage = action.currentPage;
+      });
     default:
       return state;
   }
@@ -47,11 +53,16 @@ export const unfollowAC = (userID) => {
   };
 };
 
-export const setUsersAC = (users) => {
+export const setUsersAC = (loadUsers) => {
   return {
     type: SET_USERS,
-    loadUsers: users,
+    loadUsers: loadUsers,
   };
 };
+
+export const setCurrentPageAC = (currentPage) => ({
+  type: SET_CURRENT_PAGE,
+  currentPage: currentPage,
+});
 
 export default usersReducer;
