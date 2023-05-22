@@ -1,18 +1,25 @@
+import React from "react";
 import s from "./UsersComp.module.css";
 import userPhoto from "../../../assets/images/ava.png";
+import { NavLink } from "react-router-dom";
+
 const UsersComp = (props) => {
   let follow = () => {
     props.follow(props.id);
   };
+
   let unFollow = () => {
     props.unFollow(props.id);
   };
+
   return (
     <div className={s.item}>
-      <img
-        src={props.fotoURL != null ? props.fotoURL : userPhoto}
-        alt="error"
-      ></img>
+      <NavLink to={"/profile/" + props.id}>
+        <img
+          src={props.fotoURL != null ? props.fotoURL : userPhoto}
+          alt="error"
+        />
+      </NavLink>
       <div>
         {props.followed ? (
           <button onClick={unFollow}>Follow</button>
@@ -33,4 +40,5 @@ const UsersComp = (props) => {
     </div>
   );
 };
+
 export default UsersComp;

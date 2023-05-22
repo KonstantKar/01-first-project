@@ -1,3 +1,47 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.background {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.ava {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
 .descriptionBlock {
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fullName {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.aboutMe {
+  margin-bottom: 10px;
+}
+
+.contacts {
+  margin-bottom: 10px;
+}
+
+.contacts span {
+  display: flex;
+  align-items: center;
+}
+
+.contacts span img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }

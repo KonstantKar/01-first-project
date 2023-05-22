@@ -1,11 +1,16 @@
 import s from "./Profile.module.css";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPosts from "./MyPosts/MyPosts";
 const Profile = (props) => {
   return (
     <div>
-      <ProfileInfo />
-      <MyPostsContainer store={props.store} />
+      <ProfileInfo profile={props.profile} />
+      <MyPosts
+        addPost={props.addPost}
+        updateNewPostText={props.updateNewPostText}
+        postData={props.postData}
+        newPostText={props.newPostText}
+      />
     </div>
   );
 };

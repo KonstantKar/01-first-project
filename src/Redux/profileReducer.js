@@ -1,6 +1,7 @@
 import produce from "immer";
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SET_PROFILE = "SET-PROFILE";
 
 let initialState = {
   postData: [
@@ -10,6 +11,7 @@ let initialState = {
     { id: 4, message: "LMAO KEK", likes: "20" },
   ],
   newPostText: "Текст поста",
+  profile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -28,6 +30,10 @@ const profileReducer = (state = initialState, action) => {
       return produce(state, (draftState) => {
         draftState.newPostText = action.newText;
       });
+    case SET_PROFILE:
+      return produce(state, (draftState) => {
+        draftState.profile = action.loadProfile;
+      });
     default:
       return state;
   }
@@ -43,6 +49,13 @@ export const updateNewPostTextActionCreator = (text) => {
   return {
     type: UPDATE_NEW_POST_TEXT,
     newText: text,
+  };
+};
+
+export const setProfileAC = (loadProfile) => {
+  return {
+    type: SET_PROFILE,
+    loadProfile: loadProfile,
   };
 };
 export default profileReducer;
