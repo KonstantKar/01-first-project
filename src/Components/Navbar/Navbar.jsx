@@ -1,15 +1,13 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import s from "./NavItem.module.css";
-
-const NavItem = (props) => {
+import NavItem from "./NavComp/NavItem";
+import s from "./NavBar.module.css";
+const Navbar = (props) => {
+  let navElements = props.navBarData.map((el) => {
+    return <NavItem id={el.id} navName={el.navName} to={el.to} />;
+  });
   return (
-    <div className={s.navItem}>
-      <NavLink to={props.to} activeClassName={s.activeLink}>
-        {props.navName}
-      </NavLink>
-    </div>
+    <nav className={s.nav}>
+      <div>{navElements}</div>
+    </nav>
   );
 };
-
-export default NavItem;
+export default Navbar;
