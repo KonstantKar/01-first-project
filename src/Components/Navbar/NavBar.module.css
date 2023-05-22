@@ -1,4 +1,30 @@
 .nav {
   grid-area: n;
-  background-color: blanchedalmond;
+  background-color: #7fffd4;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navItem {
+  margin-right: 10px;
+}
+
+.navItem:last-child {
+  margin-right: 0;
+}
+
+.navItem a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.navItem a:hover {
+  color: #ff6f00;
+}
+
+.activeLink {
+  color: #ff6f00;
 }
