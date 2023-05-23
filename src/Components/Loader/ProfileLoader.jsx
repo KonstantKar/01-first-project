@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Loader.module.css";
 
-const Loader = () => {
+const ProfileLoader = () => {
   return (
     <div>
       <div className={s.loader}>
@@ -14,4 +14,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default ProfileLoader;

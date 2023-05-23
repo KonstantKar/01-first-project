@@ -1,11 +1,11 @@
 import React from "react";
 import userPhoto from "../../../assets/images/ava.png";
-import Loader from "../../Users/Loader/Loader";
 import s from "./ProfileInfo.module.css";
+import ProfileLoader from "../../Loader/ProfileLoader";
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
-    return <Loader />;
+    return <ProfileLoader />;
   }
 
   return (

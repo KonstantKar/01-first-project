@@ -10,7 +10,7 @@ import Users from "./Users";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import s from "./UsersContainer.module.css";
-import Loader from "./Loader/Loader";
+import Loader from "../Loader/Loader";
 
 const UsersContainer = () => {
   const dispatch = useDispatch();
