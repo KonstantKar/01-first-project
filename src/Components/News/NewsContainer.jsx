@@ -12,7 +12,7 @@ const NewsContainer = () => {
   const getNews = () => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
-      .then((data) => setNews(data)); // Ограничение до первых 30 элементов до тех пор, пока не пойму ПОЧЕМУ НЕ РАБОТАЕТ useParams
+      .then((data) => setNews(data));
   };
 
   useEffect(() => {
