@@ -41,7 +41,10 @@ const UsersContainer = () => {
     setIsLoading(true); // Показываем загрузку перед отправкой запроса
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         setUsers(response.data.items);

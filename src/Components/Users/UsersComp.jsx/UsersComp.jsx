@@ -2,14 +2,44 @@ import React from "react";
 import s from "./UsersComp.module.css";
 import userPhoto from "../../../assets/images/ava.png";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const UsersComp = (props) => {
   let follow = () => {
-    props.follow(props.id);
+    axios
+      .post(
+        `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            "API-KEY": "6b6ecac8-d7f7-4477-87bb-015031017fed",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.resultCode === 0) {
+          props.follow(props.id);
+        }
+      });
   };
 
   let unFollow = () => {
-    props.unFollow(props.id);
+    axios
+      .delete(
+        `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+        {
+          withCredentials: true,
+          headers: {
+            "API-KEY": "6b6ecac8-d7f7-4477-87bb-015031017fed",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.resultCode === 0) {
+          props.unFollow(props.id);
+        }
+      });
   };
 
   return (
