@@ -7,10 +7,10 @@ import {
   setCurrentPageAC,
 } from "../../Redux/usersReducer";
 import Users from "./Users";
-import axios from "axios";
 import ReactPaginate from "react-paginate";
 import s from "./UsersContainer.module.css";
 import Loader from "../Loader/Loader";
+import { usersAPI } from "../../API/api";
 
 const UsersContainer = () => {
   const dispatch = useDispatch();
@@ -19,65 +19,44 @@ const UsersContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [pageSize, setPageSize] = useState(4); // Количество пользователей на странице
-
-  //логика показывания крутилки
   const [isLoading, setIsLoading] = useState(false); // Состояние для отображения загрузки
-  const [isPageChanging, setIsPageChanging] = useState(false);
 
   const follow = (userID) => {
     dispatch(followAC(userID));
   };
-
   const unfollow = (userID) => {
     dispatch(unfollowAC(userID));
   };
-
   const setUsers = (loadUsers) => {
     dispatch(setUsersAC(loadUsers));
   };
 
-  const getUsers = (page) => {
-    setIsPageChanging(true);
-    setIsLoading(true); // Показываем загрузку перед отправкой запроса
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        setUsers(response.data.items);
-        setTotalPages(Math.ceil(response.data.totalCount / pageSize));
-        setIsLoading(false); // Скрываем загрузку после получения данных
-        setIsPageChanging(false);
-      });
+  const getUsersData = (page) => {
+    usersAPI.getAxiosUsers(page, pageSize).then((/*response*/ data) => {
+      setUsers(data.items);
+      setTotalPages(Math.ceil(data.totalCount / pageSize));
+      setCurrentPage(page);
+    });
   };
 
   useEffect(() => {
-    getUsers(currentPage);
+    getUsersData(currentPage);
   }, [currentPage]);
 
   const handlePageChange = (selectedPage) => {
-    if (!isPageChanging) {
-      const newCurrentPage = selectedPage.selected + 1;
-      dispatch(setCurrentPageAC(newCurrentPage)); // Обновляем currentPage в Redux
-      setCurrentPage(newCurrentPage); // Обновляем текущую страницу локально
-    }
+    const newCurrentPage = selectedPage.selected + 1;
+    dispatch(setCurrentPageAC(newCurrentPage)); // Обновляем currentPage в Redux
+    setCurrentPage(newCurrentPage); // Обновляем текущую страницу локально
   };
 
   return (
+    //ДОБАВИТЬ ЛОГИКУ ОТОБРАЖЕНИЯ LOADER
     <div>
-      {isLoading && !isPageChanging ? (
-        <Loader /> // Отображаем загрузку, если isLoading равно true а isPageChanging=false
+      {isLoading ? (
+        <Loader /> // Отображаем загрузку, если ...
       ) : (
         <React.Fragment>
-          <Users
-            follow={follow}
-            unfollow={unfollow}
-            users={users}
-            getUsers={getUsers}
-          />
+          <Users follow={follow} unfollow={unfollow} users={users} />
           <ReactPaginate
             previousLabel={"Previous"}
             nextLabel={"Next"}
