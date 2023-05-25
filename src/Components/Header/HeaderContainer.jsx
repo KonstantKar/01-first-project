@@ -18,7 +18,6 @@ const HeaderContainer = () => {
         withCredentials: true,
       })
       .then((response) => {
-        debugger;
         if (response.data.resultCode === 0) {
           let data = response.data.data;
           setUserData(data);
@@ -30,6 +29,7 @@ const HeaderContainer = () => {
   useEffect(() => {
     getUserData();
   }, []);
+
   return <Header data={data} isAuth={isAuth} />;
 };
 export default HeaderContainer;
