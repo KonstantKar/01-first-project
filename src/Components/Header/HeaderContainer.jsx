@@ -3,31 +3,27 @@ import Header from "./Header";
 import axios from "axios";
 import { setAuthUserDataAC } from "../../Redux/authReducer";
 import { useEffect, useState } from "react";
+import { accountAPI } from "../../API/api";
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.auth.data);
   const [isAuth, setIsAuth] = useState(false);
 
-  const setUserData = (loadData) => {
+  const setAccountData = (loadData) => {
     dispatch(setAuthUserDataAC(loadData));
   };
 
-  const getUserData = () => {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          let data = response.data.data;
-          setUserData(data);
-          setIsAuth(true);
-        }
-      });
+  const getAccountData = () => {
+    accountAPI.getAxiosAccount().then((data) => {
+      if (data.resultCode === 0) {
+        setAccountData(data.data);
+        setIsAuth(true);
+      }
+    });
   };
 
   useEffect(() => {
-    getUserData();
+    getAccountData();
   }, []);
 
   return <Header data={data} isAuth={isAuth} />;

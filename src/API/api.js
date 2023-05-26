@@ -20,20 +20,24 @@ export const usersAPI = {
 
 export const followAPI = {
   getAxiosFollow(id) {
-    return instance
-      .post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {})
-      .then((responce) => {
-        return responce.data;
-      });
+    return instance.post(`/follow/${id}`, {}).then((responce) => {
+      return responce.data;
+    });
   },
 };
 
 export const unfollowAPI = {
   getAxiosUnfollow(id) {
-    return instance
-      .delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
-      .then((responce) => {
-        return responce.data;
-      });
+    return instance.delete(`/follow/${id}`).then((responce) => {
+      return responce.data;
+    });
+  },
+};
+
+export const accountAPI = {
+  getAxiosAccount() {
+    return instance.get(`/auth/me`).then((responce) => {
+      return responce.data;
+    });
   },
 };
