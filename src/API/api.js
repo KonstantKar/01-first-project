@@ -34,9 +34,17 @@ export const unfollowAPI = {
   },
 };
 
-export const accountAPI = {
-  getAxiosAccount() {
+export const authAPI = {
+  getAxiosMyAccount() {
     return instance.get(`/auth/me`).then((responce) => {
+      return responce.data;
+    });
+  },
+};
+
+export const profileAPI = {
+  getAxiosProfile(userId) {
+    return instance.get(`/profile/${userId}`).then((responce) => {
       return responce.data;
     });
   },

@@ -1,4 +1,5 @@
 import produce from "immer";
+import { profileAPI } from "../API/api";
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_PROFILE = "SET-PROFILE";
@@ -58,19 +59,11 @@ export const setProfileAC = (loadProfile) => {
     loadProfile: loadProfile,
   };
 };
-export default profileReducer;
 
-/* const profileReducer = (state = initialState, action) => {
-  if (action.type === ADD_POST) {
-    let newPost = {
-      id: 5,
-      message: state.newPostText,
-      likes: 0,
-    };
-    state.postData.push(newPost);
-    state.newPostText = "";
-  } else if (action.type === UPDATE_NEW_POST_TEXT) {
-    state.newPostText = action.newText;
-  }
-  return state;
-}; */
+export const getProfileTC = (userId) => (dispatch) => {
+  profileAPI.getAxiosProfile(userId).then((data) => {
+    dispatch(setProfileAC(data));
+  });
+};
+
+export default profileReducer;

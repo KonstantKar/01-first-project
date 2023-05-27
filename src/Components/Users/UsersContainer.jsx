@@ -32,7 +32,7 @@ const UsersContainer = () => {
   };
 
   const getUsersData = (page) => {
-    usersAPI.getAxiosUsers(page, pageSize).then((/*response*/ data) => {
+    usersAPI.getAxiosUsers(page, pageSize).then((data) => {
       setUsers(data.items);
       setTotalPages(Math.ceil(data.totalCount / pageSize));
       setCurrentPage(page);

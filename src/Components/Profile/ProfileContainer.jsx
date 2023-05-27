@@ -1,5 +1,6 @@
 import {
   addPostActionCreator,
+  getProfileTC,
   setProfileAC,
   updateNewPostTextActionCreator,
 } from "../../Redux/profileReducer";
@@ -25,16 +26,19 @@ const ProfileContainer = () => {
     dispatch(action);
   };
 
-  const setProfile = (loadProfile) => {
+  //Так было до добавления thunk-creator-a
+  /* const setProfile = (loadProfile) => {
     dispatch(setProfileAC(loadProfile));
   };
 
+  const getAuthProfile = () => {
+    profileAPI.getAxiosProfile(userId).then((data) => {
+      setProfile(data);
+    });
+  }; */
+
   const getProfile = () => {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then((response) => {
-        setProfile(response.data);
-      });
+    dispatch(getProfileTC(userId));
   };
 
   useEffect(() => {
