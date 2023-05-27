@@ -16,6 +16,17 @@ const UsersComp = (props) => {
     dispatch(unFollowTC(props.id));
   };
 
+  //таким был unfollod до thunk
+  /*   let unFollow = () => {
+    setHideButton(true);
+    unfollowAPI.getAxiosUnfollow(props.id).then((data) => {
+      if (data.resultCode === 0) {
+        props.unFollow(props.id);
+        setHideButton(false);
+      }
+    });
+  }; */
+
   return (
     <div className={s.item}>
       <NavLink to={"/profile/" + props.id}>
