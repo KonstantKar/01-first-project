@@ -26,7 +26,7 @@ export const followAPI = {
   },
 };
 
-export const unfollowAPI = {
+export const unFollowAPI = {
   getAxiosUnfollow(id) {
     return instance.delete(`/follow/${id}`).then((responce) => {
       return responce.data;

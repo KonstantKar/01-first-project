@@ -2,29 +2,18 @@ import React, { useState } from "react";
 import s from "./UsersComp.module.css";
 import userPhoto from "../../../assets/images/ava.png";
 import { NavLink } from "react-router-dom";
-import { followAPI, unfollowAPI } from "../../../API/api";
+import { followTC, unFollowTC } from "../../../Redux/usersReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const UsersComp = (props) => {
-  const [hideButton, setHideButton] = useState(false);
+  const dispatch = useDispatch();
 
   let follow = () => {
-    setHideButton(true);
-    followAPI.getAxiosFollow(props.id).then((data) => {
-      if (data.resultCode === 0) {
-        props.follow(props.id);
-        setHideButton(false);
-      }
-    });
+    dispatch(followTC(props.id));
   };
 
   let unFollow = () => {
-    setHideButton(true);
-    unfollowAPI.getAxiosUnfollow(props.id).then((data) => {
-      if (data.resultCode === 0) {
-        props.unFollow(props.id);
-        setHideButton(false);
-      }
-    });
+    dispatch(unFollowTC(props.id));
   };
 
   return (
@@ -36,12 +25,12 @@ const UsersComp = (props) => {
         />
       </NavLink>
       <div>
-        {!hideButton &&
+        {!props.hideButton &&
           // Проверка состояний loading и hideButton перед отображением кнопки
           (props.followed ? (
-            <button onClick={unFollow}>Follow</button>
+            <button onClick={unFollow}>Unfollow</button>
           ) : (
-            <button onClick={follow}>Unfollow</button>
+            <button onClick={follow}>Follow</button>
           ))}
       </div>
       <span>

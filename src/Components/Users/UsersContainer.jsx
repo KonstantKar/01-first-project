@@ -15,6 +15,7 @@ import { usersAPI } from "../../API/api";
 const UsersContainer = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
+  const hideButton = useSelector((state) => state.users.hideButton);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -56,7 +57,12 @@ const UsersContainer = () => {
         <Loader /> // Отображаем загрузку, если ...
       ) : (
         <React.Fragment>
-          <Users follow={follow} unfollow={unfollow} users={users} />
+          <Users
+            follow={follow}
+            unfollow={unfollow}
+            users={users}
+            hideButton={hideButton}
+          />
           <ReactPaginate
             previousLabel={"Previous"}
             nextLabel={"Next"}

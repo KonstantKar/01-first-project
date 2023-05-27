@@ -13,6 +13,7 @@ const Users = (props) => {
         fotoURL={el.photos.small}
         follow={props.follow}
         unFollow={props.unfollow}
+        hideButton={props.hideButton}
       />
     );
   });
