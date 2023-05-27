@@ -5,28 +5,23 @@ import { NavLink } from "react-router-dom";
 import { followAPI, unfollowAPI } from "../../../API/api";
 
 const UsersComp = (props) => {
-  const [loading, setLoading] = useState(false); // Состояние загрузки данных
   const [hideButton, setHideButton] = useState(false);
 
   let follow = () => {
-    setLoading(true); // Установка состояния загрузки данных перед запросом
     setHideButton(true);
     followAPI.getAxiosFollow(props.id).then((data) => {
       if (data.resultCode === 0) {
         props.follow(props.id);
-        setLoading(false); // Установка состояния загрузки данных после получения ответа от сервера
         setHideButton(false);
       }
     });
   };
 
   let unFollow = () => {
-    setLoading(true); // Установка состояния загрузки данных перед запросом
     setHideButton(true);
     unfollowAPI.getAxiosUnfollow(props.id).then((data) => {
       if (data.resultCode === 0) {
         props.unFollow(props.id);
-        setLoading(false); // Установка состояния загрузки данных после получения ответа от сервера
         setHideButton(false);
       }
     });
@@ -41,8 +36,7 @@ const UsersComp = (props) => {
         />
       </NavLink>
       <div>
-        {!loading &&
-          !hideButton &&
+        {!hideButton &&
           // Проверка состояний loading и hideButton перед отображением кнопки
           (props.followed ? (
             <button onClick={unFollow}>Follow</button>
