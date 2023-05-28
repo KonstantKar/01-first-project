@@ -7,6 +7,7 @@ import s from "./UsersContainer.module.css";
 import Loader from "../Loader/Loader";
 import { usersAPI } from "../../API/api";
 import { Navigate } from "react-router-dom";
+import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const UsersContainer = () => {
   const dispatch = useDispatch();
@@ -41,33 +42,33 @@ const UsersContainer = () => {
     setCurrentPage(newCurrentPage); // Обновляем текущую страницу локально
   };
 
-  if (isAuth === false) return <Navigate to={"/Login"} />;
-
   return (
-    //ДОБАВИТЬ ЛОГИКУ ОТОБРАЖЕНИЯ LOADER
-    <div>
-      {isLoading ? (
-        <Loader /> // Отображаем загрузку, если ...
-      ) : (
-        <React.Fragment>
-          <Users users={users} hideButton={hideButton} />
-          <ReactPaginate
-            previousLabel={"Previous"}
-            nextLabel={"Next"}
-            breakLabel={"..."}
-            pageCount={totalPages}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageChange}
-            containerClassName={s.pagination}
-            activeClassName={s.active}
-            previousClassName={s.previous}
-            nextClassName={s.next}
-            breakClassName={s.break}
-          />
-        </React.Fragment>
-      )}
-    </div>
+    <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
+      //ДОБАВИТЬ ЛОГИКУ ОТОБРАЖЕНИЯ LOADER
+      <div>
+        {isLoading ? (
+          <Loader /> // Отображаем загрузку, если ...
+        ) : (
+          <React.Fragment>
+            <Users users={users} hideButton={hideButton} />
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              breakLabel={"..."}
+              pageCount={totalPages}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageChange}
+              containerClassName={s.pagination}
+              activeClassName={s.active}
+              previousClassName={s.previous}
+              nextClassName={s.next}
+              breakClassName={s.break}
+            />
+          </React.Fragment>
+        )}
+      </div>
+    </PrivateRoute>
   );
 };
 

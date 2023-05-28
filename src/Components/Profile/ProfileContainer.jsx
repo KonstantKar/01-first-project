@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import axios from "axios";
 import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const ProfileContainer = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const ProfileContainer = () => {
   if (isAuth === false) return <Navigate to={"/Login"} />;
 
   return (
-    <div>
+    <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
       <Profile
         profile={profile}
         addPost={addPost}
@@ -65,7 +66,7 @@ const ProfileContainer = () => {
         postData={postData}
         newPostText={newPostText}
       />
-    </div>
+    </PrivateRoute>
   );
 };
 

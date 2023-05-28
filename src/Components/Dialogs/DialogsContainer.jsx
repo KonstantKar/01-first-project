@@ -6,6 +6,7 @@ import {
   addMessageActionCreator,
 } from "../../Redux/dialogsReducer";
 import { Navigate } from "react-router-dom";
+import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const DialogsContainer = () => {
   const dispatch = useDispatch();
@@ -23,16 +24,16 @@ const DialogsContainer = () => {
     dispatch(action);
   };
 
-  if (isAuth === false) return <Navigate to={"/Login"} />;
-
   return (
-    <Dialogs
-      addMessage={addMessage}
-      onMessageChange={onMessageChange}
-      dialogsData={dialogsData}
-      newMessageText={newMessageText}
-      messageData={messageData}
-    />
+    <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
+      <Dialogs
+        addMessage={addMessage}
+        onMessageChange={onMessageChange}
+        dialogsData={dialogsData}
+        newMessageText={newMessageText}
+        messageData={messageData}
+      />
+    </PrivateRoute>
   );
 };
 

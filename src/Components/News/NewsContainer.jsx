@@ -3,6 +3,7 @@ import News from "./News";
 import { setNewsAC } from "../../Redux/newsReducer";
 import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const NewsContainer = () => {
   const dispatch = useDispatch();
@@ -24,8 +25,10 @@ const NewsContainer = () => {
     dispatch(setNewsAC(loadNews));
   };
 
-  if (isAuth === false) return <Navigate to={"/Login"} />;
-
-  return <News news={news} />;
+  return (
+    <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
+      <News news={news} />
+    </PrivateRoute>
+  );
 };
 export default NewsContainer;
