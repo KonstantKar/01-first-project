@@ -7,6 +7,7 @@ const Profile = (props) => {
       <ProfileInfo profile={props.profile} />
       <MyPosts
         addPost={props.addPost}
+        deletePost={props.deletePost}
         updateNewPostText={props.updateNewPostText}
         postData={props.postData}
         newPostText={props.newPostText}

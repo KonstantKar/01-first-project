@@ -11,6 +11,9 @@ const Post = (props) => {
       <p>{props.message}</p>
       <div>
         <span className={s.likes}>{props.like} likes</span>
+        <button className={s.deleteButton} onClick={props.deletePost}>
+          Delete Post
+        </button>
       </div>
     </div>
   );

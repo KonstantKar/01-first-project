@@ -3,7 +3,7 @@ import s from "./UsersComp.module.css";
 import userPhoto from "../../../assets/images/ava.png";
 import { NavLink } from "react-router-dom";
 import { followTC, unFollowTC } from "../../../Redux/usersReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const UsersComp = (props) => {
   const dispatch = useDispatch();

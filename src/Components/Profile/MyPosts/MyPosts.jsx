@@ -4,7 +4,15 @@ import Post from "./Post/Post";
 
 const MyPosts = (props) => {
   let postElement = props.postData.map((el) => {
-    return <Post id={el.id} message={el.message} like={el.likes} />;
+    return (
+      <Post
+        key={el.id}
+        id={el.id}
+        message={el.message}
+        like={el.likes}
+        deletePost={() => props.deletePost(el.id)}
+      />
+    );
   });
 
   let newPostElement = React.createRef();
@@ -30,7 +38,6 @@ const MyPosts = (props) => {
           />
         </div>
         <button onClick={onAddPost}>Add post</button>
-        <button>Remove</button>
       </div>
       <div className={s.posts}>{postElement}</div>
     </div>

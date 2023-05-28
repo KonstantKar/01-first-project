@@ -1,5 +1,6 @@
 import {
   addPostActionCreator,
+  deletePostActionCreator,
   getProfileTC,
   setProfileAC,
   updateNewPostTextActionCreator,
@@ -15,10 +16,16 @@ const ProfileContainer = () => {
   const postData = useSelector((state) => state.profile.postData);
   const newPostText = useSelector((state) => state.profile.newPostText);
   const profile = useSelector((state) => state.profile.profile);
+  const idToDelete = useSelector((state) => state.profile.postData[0].id);
+
   const { userId } = useParams();
 
   let addPost = () => {
     dispatch(addPostActionCreator());
+  };
+
+  let deletePost = () => {
+    dispatch(deletePostActionCreator(idToDelete));
   };
 
   let onPostChange = (text) => {
@@ -50,6 +57,7 @@ const ProfileContainer = () => {
       <Profile
         profile={profile}
         addPost={addPost}
+        deletePost={deletePost}
         updateNewPostText={onPostChange}
         postData={postData}
         newPostText={newPostText}

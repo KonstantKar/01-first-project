@@ -3,6 +3,7 @@ import { profileAPI } from "../API/api";
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_PROFILE = "SET-PROFILE";
+const DELETE_POST = "DELETE-POST";
 
 let initialState = {
   postData: [
@@ -31,6 +32,15 @@ const profileReducer = (state = initialState, action) => {
       return produce(state, (draftState) => {
         draftState.newPostText = action.newText;
       });
+    case DELETE_POST:
+      return produce(state, (draftState) => {
+        const index = draftState.postData.findIndex(
+          (post) => post.id === action.postID
+        );
+        if (index !== -1) {
+          draftState.postData.splice(index, 1);
+        }
+      });
     case SET_PROFILE:
       return produce(state, (draftState) => {
         draftState.profile = action.loadProfile;
@@ -43,6 +53,13 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = () => {
   return {
     type: ADD_POST,
+  };
+};
+
+export const deletePostActionCreator = (idToDelete) => {
+  return {
+    type: DELETE_POST,
+    postID: idToDelete,
   };
 };
 

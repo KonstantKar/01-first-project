@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  followAC,
-  setUsersAC,
-  unfollowAC,
-  setCurrentPageAC,
-} from "../../Redux/usersReducer";
+import { setUsersAC, setCurrentPageAC } from "../../Redux/usersReducer";
 import Users from "./Users";
 import ReactPaginate from "react-paginate";
 import s from "./UsersContainer.module.css";
@@ -22,12 +17,6 @@ const UsersContainer = () => {
   const [pageSize, setPageSize] = useState(4); // Количество пользователей на странице
   const [isLoading, setIsLoading] = useState(false); // Состояние для отображения загрузки
 
-  const follow = (userID) => {
-    dispatch(followAC(userID));
-  };
-  const unfollow = (userID) => {
-    dispatch(unfollowAC(userID));
-  };
   const setUsers = (loadUsers) => {
     dispatch(setUsersAC(loadUsers));
   };
@@ -57,12 +46,7 @@ const UsersContainer = () => {
         <Loader /> // Отображаем загрузку, если ...
       ) : (
         <React.Fragment>
-          <Users
-            follow={follow}
-            unfollow={unfollow}
-            users={users}
-            hideButton={hideButton}
-          />
+          <Users users={users} hideButton={hideButton} />
           <ReactPaginate
             previousLabel={"Previous"}
             nextLabel={"Next"}
