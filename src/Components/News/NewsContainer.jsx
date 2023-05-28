@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import News from "./News";
 import { setNewsAC } from "../../Redux/newsReducer";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const NewsContainer = () => {
   const dispatch = useDispatch();
   const news = useSelector((state) => state.news.news);
+  const isAuth = useSelector((state) => state.auth.isAuth);
   const { newsId } = useParams();
 
   const getNews = () => {
@@ -22,6 +23,9 @@ const NewsContainer = () => {
   const setNews = (loadNews) => {
     dispatch(setNewsAC(loadNews));
   };
+
+  if (isAuth === false) return <Navigate to={"/Login"} />;
+
   return <News news={news} />;
 };
 export default NewsContainer;

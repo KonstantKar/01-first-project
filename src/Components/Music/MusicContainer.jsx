@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addSongAC, deleteSongAC } from "../../Redux/musicReducer";
 import Music from "./Music";
+import { Navigate } from "react-router-dom";
 
 const MusicContainer = () => {
   const dispatch = useDispatch();
   const songs = useSelector((state) => state.music.songs);
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
   const addSong = (songID) => {
     dispatch(addSongAC(songID));
@@ -14,6 +16,8 @@ const MusicContainer = () => {
   const deleteSong = (songID) => {
     dispatch(deleteSongAC(songID));
   };
+
+  if (isAuth === false) return <Navigate to={"/Login"} />;
 
   return <Music addSong={addSong} deleteSong={deleteSong} songs={songs} />;
 };

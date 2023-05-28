@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Profile";
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const ProfileContainer = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ const ProfileContainer = () => {
   const newPostText = useSelector((state) => state.profile.newPostText);
   const profile = useSelector((state) => state.profile.profile);
   const idToDelete = useSelector((state) => state.profile.postData[0].id);
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
   const { userId } = useParams();
 
@@ -51,6 +52,8 @@ const ProfileContainer = () => {
   useEffect(() => {
     getProfile();
   }, []); // Обновление профиля при изменении значения параметра
+
+  if (isAuth === false) return <Navigate to={"/Login"} />;
 
   return (
     <div>

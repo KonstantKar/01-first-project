@@ -10,6 +10,7 @@ import MusicContainer from "./Components/Music/MusicContainer";
 import NewsContainer from "./Components/News/NewsContainer";
 import SingleNewsContainer from "./Components/News/SingleNews/SingleNewsContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
+import Login from "./Components/Login/Login";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/music" element={<MusicContainer />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>
