@@ -4,6 +4,7 @@ const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_PROFILE = "SET-PROFILE";
 const DELETE_POST = "DELETE-POST";
+const SET_STATUS = "SET-STATUS";
 
 let initialState = {
   postData: [
@@ -14,6 +15,7 @@ let initialState = {
   ],
   newPostText: "Текст поста",
   profile: null,
+  status: "Ваш статус",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -44,6 +46,10 @@ const profileReducer = (state = initialState, action) => {
     case SET_PROFILE:
       return produce(state, (draftState) => {
         draftState.profile = action.loadProfile;
+      });
+    case SET_STATUS:
+      return produce(state, (draftState) => {
+        draftState.status = action.status;
       });
     default:
       return state;
@@ -77,9 +83,30 @@ export const setProfileAC = (loadProfile) => {
   };
 };
 
+export const setStatusAC = (status) => {
+  return {
+    type: SET_STATUS,
+    status: status,
+  };
+};
+
 export const getProfileTC = (userId) => (dispatch) => {
   profileAPI.getAxiosProfile(userId).then((data) => {
     dispatch(setProfileAC(data));
+  });
+};
+
+export const getStatusTC = (userId) => (dispatch) => {
+  profileAPI.getStatus(userId).then((data) => {
+    dispatch(setStatusAC(data));
+  });
+};
+
+export const updateStatusTC = (status) => (dispatch) => {
+  profileAPI.updateStatus(status).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(setStatusAC(status));
+    }
   });
 };
 

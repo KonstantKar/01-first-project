@@ -2,6 +2,7 @@ import React from "react";
 import userPhoto from "../../../assets/images/ava.png";
 import s from "./ProfileInfo.module.css";
 import ProfileLoader from "../../Loader/ProfileLoader";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -38,6 +39,9 @@ const ProfileInfo = (props) => {
               />
               {props.profile.contacts.facebook}
             </span>
+            <div>
+              <ProfileStatus status={props.status} />
+            </div>
           </div>
         </div>
       </div>

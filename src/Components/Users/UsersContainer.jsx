@@ -44,10 +44,9 @@ const UsersContainer = () => {
 
   return (
     <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
-      //ДОБАВИТЬ ЛОГИКУ ОТОБРАЖЕНИЯ LOADER
       <div>
         {isLoading ? (
-          <Loader /> // Отображаем загрузку, если ...
+          <Loader /> // Отображаем загрузку, если ... добавить логику.
         ) : (
           <React.Fragment>
             <Users users={users} hideButton={hideButton} />

@@ -2,15 +2,15 @@ import {
   addPostActionCreator,
   deletePostActionCreator,
   getProfileTC,
+  getStatusTC,
   setProfileAC,
   updateNewPostTextActionCreator,
+  updateStatusTC,
 } from "../../Redux/profileReducer";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Profile";
-import axios from "axios";
 import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const ProfileContainer = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,6 @@ const ProfileContainer = () => {
   const newPostText = useSelector((state) => state.profile.newPostText);
   const profile = useSelector((state) => state.profile.profile);
   const idToDelete = useSelector((state) => state.profile.postData[0].id);
-  const isAuth = useSelector((state) => state.auth.isAuth);
-
   const { userId } = useParams();
 
   let addPost = () => {
@@ -50,23 +48,32 @@ const ProfileContainer = () => {
     dispatch(getProfileTC(userId));
   };
 
+  const getUsersStatus = () => {
+    dispatch(getStatusTC(userId));
+  };
+
+  const updateStatus = (status) => {
+    dispatch(updateStatusTC(status));
+  };
+
   useEffect(() => {
     getProfile();
-  }, []); // Обновление профиля при изменении значения параметра
+  }, [userId]); // Обновление профиля при изменении значения параметра
 
-  if (isAuth === false) return <Navigate to={"/Login"} />;
+  useEffect(() => {
+    getUsersStatus();
+  }, [userId]); // Обновление профиля при изменении значения параметра
 
   return (
-    <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
-      <Profile
-        profile={profile}
-        addPost={addPost}
-        deletePost={deletePost}
-        updateNewPostText={onPostChange}
-        postData={postData}
-        newPostText={newPostText}
-      />
-    </PrivateRoute>
+    <Profile
+      profile={profile}
+      addPost={addPost}
+      deletePost={deletePost}
+      updateNewPostText={onPostChange}
+      updateStatus={updateStatus}
+      postData={postData}
+      newPostText={newPostText}
+    />
   );
 };
 
