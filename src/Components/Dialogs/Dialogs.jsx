@@ -2,12 +2,16 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dialogs = (props) => {
-  let dialogsElements = props.dialogsData.map((el) => {
+  const dialogsData = useSelector((state) => state.dialogs.dialogsData);
+  const newMessageText = useSelector((state) => state.dialogs.newMessageText);
+  const messageData = useSelector((state) => state.dialogs.messageData);
+  let dialogsElements = dialogsData.map((el) => {
     return <DialogItem id={el.id} name={el.name} />;
   });
-  let messageElements = props.messageData.map((el) => {
+  let messageElements = messageData.map((el) => {
     return <Message id={el.id} message={el.message} />;
   });
 
@@ -31,7 +35,7 @@ const Dialogs = (props) => {
           <textarea
             onChange={onMessageChange}
             ref={newMessageElement}
-            value={props.newMessageText}
+            value={newMessageText}
           ></textarea>
         </div>
         <button onClick={addMessage}>send message</button>

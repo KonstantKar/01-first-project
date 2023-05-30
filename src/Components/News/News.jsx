@@ -1,19 +1,14 @@
 import React from "react";
 import NewsComp from "./NewsComp/NewsComp";
 import Loader from "../Loader/Loader";
-const News = (props) => {
-  if (!props.news) {
+import { useSelector } from "react-redux";
+const News = () => {
+  const news = useSelector((state) => state.news.news);
+  if (!news) {
     return <Loader />;
   }
-  let newsElements = props.news.map((el) => {
-    return (
-      <NewsComp
-        key={props.news.id}
-        news={props.news}
-        id={el.id}
-        title={el.title}
-      />
-    );
+  let newsElements = news.map((el) => {
+    return <NewsComp key={news.id} news={news} id={el.id} title={el.title} />;
   });
   return (
     <div>

@@ -1,15 +1,17 @@
 import { produceWithPatches } from "immer";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { updateStatusTC } from "../../../Redux/profileReducer";
 
-const ProfileStatus = (props) => {
+const ProfileStatus = () => {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useDispatch();
   const status = useSelector((state) => state.profile.status);
 
   const onStatusChange = (e) => {
-    props.updateStatus(e.target.value);
+    dispatch(updateStatusTC(e.target.value));
   };
+
   return (
     <div>
       {!editMode ? (

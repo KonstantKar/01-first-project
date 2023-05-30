@@ -10,12 +10,12 @@ const SingleNewsContainer = () => {
   const getNews = () => {
     fetch(`https://jsonplaceholder.typicode.com/posts/${newsId}`)
       .then((response) => response.json())
-      .then((data) => setState(data)); // Ограничение до первых 30 элементов до тех пор, пока не пойму ПОЧЕМУ НЕ РАБОТАЕТ useParams
+      .then((data) => setState(data));
   };
 
   useEffect(() => {
     getNews();
-  }, []); // Обновление профиля при изменении значения параметра
+  }, []);
 
   return <SingleNews state={state} />;
 };

@@ -3,9 +3,11 @@ import userPhoto from "../../../assets/images/ava.png";
 import s from "./ProfileInfo.module.css";
 import ProfileLoader from "../../Loader/ProfileLoader";
 import ProfileStatus from "./ProfileStatus";
+import { useSelector } from "react-redux";
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = () => {
+  const profile = useSelector((state) => state.profile.profile);
+  if (!profile) {
     return <ProfileLoader />;
   }
 
@@ -21,26 +23,22 @@ const ProfileInfo = (props) => {
       <div className={s.container}>
         <img
           className={s.ava}
-          src={
-            props.profile.photos.large != null
-              ? props.profile.photos.large
-              : userPhoto
-          }
+          src={profile.photos.large != null ? profile.photos.large : userPhoto}
           alt="profile"
         />
         <div className={s.descriptionBlock}>
-          <div className={s.fullName}>{props.profile.fullName}</div>
-          <div className={s.aboutMe}>{props.profile.aboutMe}</div>
+          <div className={s.fullName}>{profile.fullName}</div>
+          <div className={s.aboutMe}>{profile.aboutMe}</div>
           <div className={s.contacts}>
             <span>
               <img
                 src="https://image.flaticon.com/icons/png/512/174/174848.png"
                 alt="facebook"
               />
-              {props.profile.contacts.facebook}
+              {profile.contacts.facebook}
             </span>
             <div>
-              <ProfileStatus status={props.status} />
+              <ProfileStatus />
             </div>
           </div>
         </div>

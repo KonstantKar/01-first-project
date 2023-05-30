@@ -10,9 +10,6 @@ import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const DialogsContainer = () => {
   const dispatch = useDispatch();
-  const dialogsData = useSelector((state) => state.dialogs.dialogsData);
-  const newMessageText = useSelector((state) => state.dialogs.newMessageText);
-  const messageData = useSelector((state) => state.dialogs.messageData);
   const isAuth = useSelector((state) => state.auth.isAuth);
 
   const addMessage = () => {
@@ -20,19 +17,12 @@ const DialogsContainer = () => {
   };
 
   const onMessageChange = (text) => {
-    const action = addNewMessageTextActionCreator(text);
-    dispatch(action);
+    dispatch(addNewMessageTextActionCreator(text));
   };
 
   return (
     <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
-      <Dialogs
-        addMessage={addMessage}
-        onMessageChange={onMessageChange}
-        dialogsData={dialogsData}
-        newMessageText={newMessageText}
-        messageData={messageData}
-      />
+      <Dialogs addMessage={addMessage} onMessageChange={onMessageChange} />
     </PrivateRoute>
   );
 };
