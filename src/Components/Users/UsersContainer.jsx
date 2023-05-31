@@ -6,7 +6,6 @@ import ReactPaginate from "react-paginate";
 import s from "./UsersContainer.module.css";
 import Loader from "../Loader/Loader";
 import { usersAPI } from "../../API/api";
-import { Navigate } from "react-router-dom";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const UsersContainer = () => {

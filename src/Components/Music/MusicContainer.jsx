@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addSongAC, deleteSongAC } from "../../Redux/musicReducer";
 import Music from "./Music";
-import { Navigate } from "react-router-dom";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const MusicContainer = () => {

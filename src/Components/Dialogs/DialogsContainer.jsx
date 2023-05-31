@@ -5,7 +5,6 @@ import {
   addNewMessageTextActionCreator,
   addMessageActionCreator,
 } from "../../Redux/dialogsReducer";
-import { Navigate } from "react-router-dom";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const DialogsContainer = () => {
