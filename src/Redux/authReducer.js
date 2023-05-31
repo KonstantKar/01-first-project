@@ -1,5 +1,5 @@
 import produce from "immer";
-import { authAPI } from "../API/api";
+import { authAPI, loginAPI, unLoginAPI } from "../API/api";
 const SET_USER_DATA = "SET-USER-DATA";
 const SET_IS_AUTH = "SET-IS-AUTH";
 
@@ -47,5 +47,51 @@ export const getAuthAccountDataTC = () => {
     });
   };
 };
+
+export const loginAccountTC = (values) => {
+  return (dispatch) => {
+    loginAPI.getAxiosLogin(values).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(setIsAuthAC(true));
+      } else {
+        alert("Попробуй ещё раз");
+      }
+    });
+  };
+};
+
+export const leaveAccountTC = (values) => {
+  return (dispatch) => {
+    unLoginAPI.deleteAxiosLogin(values).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(setIsAuthAC(false));
+      }
+    });
+  };
+};
+
+/*axios
+      .post(
+        `https://social-network.samuraijs.com/api/1.0/auth/login`,
+        {
+          email: values.username,
+          password: values.password,
+          rememberMe: true, // или false, в зависимости от вашего случая
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "API-KEY": "6b6ecac8-d7f7-4477-87bb-015031017fed",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.resultCode === 0) {
+          dispatch(setIsAuthAC(true));
+          setIsAuthenticated(true);
+        } else {
+          alert("Попробуй ещё раз");
+        }
+      }); */
 
 export default authReducer;

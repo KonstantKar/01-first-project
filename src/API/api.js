@@ -61,3 +61,19 @@ export const profileAPI = {
       });
   },
 };
+
+export const loginAPI = {
+  getAxiosLogin(values) {
+    return instance.post(`/auth/login`, {
+      email: values.username,
+      password: values.password,
+      rememberMe: true,
+    });
+  },
+};
+
+export const unLoginAPI = {
+  deleteAxiosLogin() {
+    return instance.delete(`/auth/login`);
+  },
+};

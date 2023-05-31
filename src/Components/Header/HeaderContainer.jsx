@@ -1,31 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
-import {
-  getAuthAccountDataTC,
-  setAuthUserDataAC,
-} from "../../Redux/authReducer";
-import { useEffect, useState } from "react";
-import { authAPI } from "../../API/api";
+import { getAuthAccountDataTC, leaveAccountTC } from "../../Redux/authReducer";
+import { useEffect } from "react";
+
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.auth.data);
   const isAuth = useSelector((state) => state.auth.isAuth);
 
-  //Код до добавления thunk-creator-a
-  /* const [isAuth, setIsAuth] = useState(false); 
-
-  const setAccountData = (loadData) => {
-    dispatch(setAuthUserDataAC(loadData));
+  const leaveProfile = () => {
+    dispatch(leaveAccountTC());
   };
-
-  const getAuthAccountData = () => {
-    authAPI.getAxiosMyAccount().then((data) => {
-      if (data.resultCode === 0) {
-        setAccountData(data.data);
-        setIsAuth(true);
-      }
-    });
-  }; */
 
   const getAuthAccountData = () => {
     dispatch(getAuthAccountDataTC());
@@ -35,6 +20,6 @@ const HeaderContainer = () => {
     getAuthAccountData();
   }, []);
 
-  return <Header data={data} isAuth={isAuth} />;
+  return <Header data={data} isAuth={isAuth} leaveProfile={leaveProfile} />;
 };
 export default HeaderContainer;
