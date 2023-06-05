@@ -1,8 +1,6 @@
-import produce from "immer";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+import { createSlice } from "@reduxjs/toolkit";
 
-let initialState = {
+const initialState = {
   dialogsData: [
     { id: 1, name: "Polya" },
     { id: 2, name: "Amur" },
@@ -18,36 +16,24 @@ let initialState = {
   newMessageText: "Введите сообщение",
 };
 
-const dialogsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_MESSAGE:
-      return produce(state, (draftState) => {
-        let newMessage = {
-          id: 4,
-          message: state.newMessageText,
-        };
-        draftState.messageData.push(newMessage);
-        draftState.newMessageText = "";
-      });
-    case UPDATE_NEW_MESSAGE_TEXT:
-      return produce(state, (draftState) => {
-        draftState.newMessageText = action.newText;
-      });
-    default:
-      return state;
-  }
-};
+const dialogsSlice = createSlice({
+  name: "dialogs",
+  initialState,
+  reducers: {
+    addMessage: (state, action) => {
+      const newMessage = {
+        id: 4,
+        message: state.newMessageText,
+      };
+      state.messageData.push(newMessage);
+      state.newMessageText = "";
+    },
+    updateNewMessageText: (state, action) => {
+      state.newMessageText = action.payload;
+    },
+  },
+});
 
-export const addNewMessageTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text,
-  };
-};
+export const { addMessage, updateNewMessageText } = dialogsSlice.actions;
 
-export const addMessageActionCreator = () => {
-  return {
-    type: ADD_MESSAGE,
-  };
-};
-export default dialogsReducer;
+export default dialogsSlice.reducer;

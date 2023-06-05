@@ -1,9 +1,6 @@
-import produce from "immer";
+import { createSlice } from "@reduxjs/toolkit";
 
-const ADD_SONG = "ADD-SONG";
-const DEL_SONG = "DEL-SONG";
-
-let initialState = {
+const initialState = {
   songs: [
     {
       id: 1,
@@ -44,39 +41,25 @@ let initialState = {
   ],
 };
 
-const musicReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_SONG:
-      return produce(state, (draftState) => {
-        const song = draftState.songs.find((song) => song.id === action.songID);
-        if (song) {
-          song.followed = true;
-        }
-      });
-    case DEL_SONG:
-      return produce(state, (draftState) => {
-        const song = draftState.songs.find((song) => song.id === action.songID);
-        if (song) {
-          song.followed = false;
-        }
-      });
-    default:
-      return state;
-  }
-};
+const musicSlice = createSlice({
+  name: "music",
+  initialState,
+  reducers: {
+    addSong: (state, action) => {
+      const song = state.songs.find((song) => song.id === action.payload);
+      if (song) {
+        song.followed = true;
+      }
+    },
+    deleteSong: (state, action) => {
+      const song = state.songs.find((song) => song.id === action.payload);
+      if (song) {
+        song.followed = false;
+      }
+    },
+  },
+});
 
-export const addSongAC = (userID) => {
-  return {
-    type: ADD_SONG,
-    songID: userID,
-  };
-};
+export const { addSong, deleteSong } = musicSlice.actions;
 
-export const deleteSongAC = (userID) => {
-  return {
-    type: DEL_SONG,
-    songID: userID,
-  };
-};
-
-export default musicReducer;
+export default musicSlice.reducer;

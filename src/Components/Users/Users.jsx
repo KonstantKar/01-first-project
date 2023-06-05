@@ -1,8 +1,10 @@
 import React from "react";
 import UsersComp from "./UsersComp.jsx/UsersComp";
+import { useSelector } from "react-redux";
 
-const Users = (props) => {
-  let usersElements = props.users.map((el) => {
+const Users = () => {
+  const users = useSelector((state) => state.users.users);
+  let usersElements = users.map((el) => {
     return (
       <UsersComp
         id={el.id}
@@ -11,9 +13,10 @@ const Users = (props) => {
         fullName={el.name}
         location={el.location}
         fotoURL={el.photos.small}
-        follow={props.follow}
-        unFollow={props.unfollow}
-        hideButton={props.hideButton}
+        follow={users.follow}
+        unFollow={users.unfollow}
+        hideButton={users.hideButton}
+        users={users}
       />
     );
   });

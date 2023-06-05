@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addSongAC, deleteSongAC } from "../../Redux/musicReducer";
+import { addSong, deleteSong } from "../../Redux/musicReducer";
 import Music from "./Music";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
@@ -9,17 +9,21 @@ const MusicContainer = () => {
   const songs = useSelector((state) => state.music.songs);
   const isAuth = useSelector((state) => state.auth.isAuth);
 
-  const addSong = (songID) => {
-    dispatch(addSongAC(songID));
+  const addSongToStore = (songID) => {
+    dispatch(addSong(songID));
   };
 
-  const deleteSong = (songID) => {
-    dispatch(deleteSongAC(songID));
+  const deleteSongFromStore = (songID) => {
+    dispatch(deleteSong(songID));
   };
 
   return (
     <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
-      <Music addSong={addSong} deleteSong={deleteSong} songs={songs} />
+      <Music
+        addSong={addSongToStore}
+        deleteSong={deleteSongFromStore}
+        songs={songs}
+      />
     </PrivateRoute>
   );
 };

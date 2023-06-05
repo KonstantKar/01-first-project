@@ -3,10 +3,11 @@ import s from "./UsersComp.module.css";
 import userPhoto from "../../../assets/images/ava.png";
 import { NavLink } from "react-router-dom";
 import { followTC, unFollowTC } from "../../../Redux/usersReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const UsersComp = (props) => {
   const dispatch = useDispatch();
+  const hideButton = useSelector((state) => state.users.hideButton);
 
   let follow = () => {
     dispatch(followTC(props.id));
@@ -25,7 +26,7 @@ const UsersComp = (props) => {
         />
       </NavLink>
       <div>
-        {!props.hideButton &&
+        {!hideButton &&
           // Проверка состояний loading и hideButton перед отображением кнопки
           (props.followed ? (
             <button onClick={unFollow}>Unfollow</button>

@@ -1,27 +1,27 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dialogs from "./Dialogs";
-import {
-  addNewMessageTextActionCreator,
-  addMessageActionCreator,
-} from "../../Redux/dialogsReducer";
+import { updateNewMessageText, addMessage } from "../../Redux/dialogsReducer";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 const DialogsContainer = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.auth.isAuth);
 
-  const addMessage = () => {
-    dispatch(addMessageActionCreator());
+  const addMessageToStore = () => {
+    dispatch(addMessage());
   };
 
-  const onMessageChange = (text) => {
-    dispatch(addNewMessageTextActionCreator(text));
+  const onMessageChangeToStore = (text) => {
+    dispatch(updateNewMessageText(text));
   };
 
   return (
     <PrivateRoute isAuth={isAuth} fallback={"/Login"}>
-      <Dialogs addMessage={addMessage} onMessageChange={onMessageChange} />
+      <Dialogs
+        addMessage={addMessageToStore}
+        onMessageChange={onMessageChangeToStore}
+      />
     </PrivateRoute>
   );
 };

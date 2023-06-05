@@ -1,10 +1,25 @@
-import produce from "immer";
-const SET_NEWS = "SET-NEWS";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   news: null,
 };
-const newsReducer = (state = initialState, action) => {
+
+const newsSlice = createSlice({
+  name: "news",
+  initialState,
+  reducers: {
+    setNews: (state, action) => {
+      state.news = action.payload;
+    },
+  },
+});
+
+export const { setNews } = newsSlice.actions;
+
+export default newsSlice.reducer;
+
+//До ввода redux-toolkit! Ну а сверху после
+/* const newsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_NEWS:
       return produce(state, (draftState) => {
@@ -20,5 +35,4 @@ export const setNewsAC = (loadNews) => {
     type: SET_NEWS,
     loadNews: loadNews,
   };
-};
-export default newsReducer;
+}; */

@@ -3,9 +3,9 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addPostActionCreator,
-  deletePostActionCreator,
-  updateNewPostTextActionCreator,
+  addPost,
+  deletePost,
+  updateNewPostText,
 } from "../../../Redux/profileReducer";
 import { render } from "react-dom";
 
@@ -21,20 +21,20 @@ const MyPostsContainer = () => {
         id={el.id}
         message={el.message}
         like={el.likes}
-        deletePost={() => dispatch(deletePostActionCreator(el.id))}
+        deletePost={() => dispatch(deletePost(el.id))}
       />
     );
   });
 
   let onAddPost = () => {
-    dispatch(addPostActionCreator());
+    dispatch(addPost());
   };
 
   let newPostTextArea = React.createRef();
 
   let onPostChange = () => {
     let text = newPostTextArea.current.value;
-    dispatch(updateNewPostTextActionCreator(text));
+    dispatch(updateNewPostText(text));
   };
 
   return (
