@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import NavbarContainer from "./Components/Navbar/NavbarContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
@@ -17,17 +17,24 @@ import NewsContainer from "./Components/News/NewsContainer";
 import SingleNewsContainer from "./Components/News/SingleNews/SingleNewsContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import LoginForm from "./Components/Login/LoginForm";
-import { useDispatch } from "react-redux";
-import { loginAccountTC, setIsAuthAC } from "./Redux/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthAccountDataTC, loginAccountTC } from "./Redux/authReducer";
 
 const App = () => {
   const dispatch = useDispatch();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isInitialized = useSelector((state) => state.auth.isInitialized);
 
   const handleSubmit = (values) => {
     dispatch(loginAccountTC(values));
-    setIsAuthenticated(true);
   };
+
+  const getAuthAccountData = () => {
+    dispatch(getAuthAccountDataTC());
+  };
+
+  useEffect(() => {
+    getAuthAccountData();
+  }, []);
 
   return (
     <BrowserRouter>
@@ -46,7 +53,7 @@ const App = () => {
             <Route
               path="/login"
               element={
-                isAuthenticated ? (
+                isInitialized ? (
                   <Navigate to="/profile" replace />
                 ) : (
                   <LoginForm handleSubmit={handleSubmit} />

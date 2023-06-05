@@ -2,10 +2,12 @@ import produce from "immer";
 import { authAPI, loginAPI, unLoginAPI } from "../API/api";
 const SET_USER_DATA = "SET-USER-DATA";
 const SET_IS_AUTH = "SET-IS-AUTH";
+const IS_INITIALIZED = "IS-INITIALIZED";
 
 let initialState = {
   data: { id: null, email: null, login: null },
-  isAuth: false,
+  isAuth: false, // cвойство для проверки залогинин юзер или нет
+  isInitialized: false, // свойство нужно для верной навигации после логина в app.js
 };
 
 const authReducer = (state = initialState, action) => {
@@ -17,6 +19,10 @@ const authReducer = (state = initialState, action) => {
     case SET_IS_AUTH:
       return produce(state, (draftState) => {
         draftState.isAuth = action.isAuth;
+      });
+    case IS_INITIALIZED:
+      return produce(state, (draftState) => {
+        draftState.isInitialized = action.isInitialized;
       });
     default:
       return state;
@@ -37,6 +43,13 @@ export const setIsAuthAC = (isAuth) => {
   };
 };
 
+export const setIsInitializedAC = (isInitialized) => {
+  return {
+    type: IS_INITIALIZED,
+    isInitialized: isInitialized,
+  };
+};
+
 export const getAuthAccountDataTC = () => {
   return (dispatch) => {
     authAPI.getAxiosMyAccount().then((data) => {
@@ -53,6 +66,7 @@ export const loginAccountTC = (values) => {
     loginAPI.getAxiosLogin(values).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(setIsAuthAC(true));
+        dispatch(setIsInitializedAC(true));
       } else {
         alert("Попробуй ещё раз");
       }

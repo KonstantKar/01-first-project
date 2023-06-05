@@ -7,8 +7,10 @@ import {
   deletePostActionCreator,
   updateNewPostTextActionCreator,
 } from "../../../Redux/profileReducer";
+import { render } from "react-dom";
 
 const MyPostsContainer = () => {
+  console.log("render");
   const dispatch = useDispatch();
   const postData = useSelector((state) => state.profile.postData);
   const newPostText = useSelector((state) => state.profile.newPostText);
@@ -23,6 +25,7 @@ const MyPostsContainer = () => {
       />
     );
   });
+
   let onAddPost = () => {
     dispatch(addPostActionCreator());
   };
