@@ -12,14 +12,6 @@ const HeaderContainer = () => {
     dispatch(leaveAccountTC());
   };
 
-  const getAuthAccountData = () => {
-    dispatch(getAuthAccountDataTC());
-  };
-
-  useEffect(() => {
-    getAuthAccountData();
-  }, []);
-
   return <Header data={data} isAuth={isAuth} leaveProfile={leaveProfile} />;
 };
 export default HeaderContainer;
