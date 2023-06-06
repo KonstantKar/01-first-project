@@ -5,7 +5,7 @@ const NavItem = (props) => {
   return (
     <div>
       <NavLink
-        to={props.to + props.id}
+        to={props.to}
         className={(navData) => (navData.isActive ? s.active : s.item)}
       >
         {props.navName}

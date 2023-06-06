@@ -1,7 +1,4 @@
-import profileReducer, {
-  addPostActionCreator,
-  deletePostActionCreator,
-} from "./profileReducer";
+import profileReducer, { addPost, deletePost } from "./profileReducer";
 
 let state = {
   postData: [
@@ -14,7 +11,7 @@ let state = {
 
 test(" length of new-post should be incremented", () => {
   // test data
-  let action = addPostActionCreator("Текст поста");
+  let action = addPost("Текст поста");
   //action
   let newState = profileReducer(state, action);
   //expectation
@@ -23,7 +20,7 @@ test(" length of new-post should be incremented", () => {
 
 test(" likes of new-post should be incremented", () => {
   // test data
-  let action = addPostActionCreator("Текст поста");
+  let action = addPost("Текст поста");
   //action
   let newState = profileReducer(state, action);
   //expectation
@@ -32,7 +29,7 @@ test(" likes of new-post should be incremented", () => {
 
 test(" text of new-post should be -", () => {
   // test data
-  let action = addPostActionCreator();
+  let action = addPost();
   //action
   let newState = profileReducer(state, action);
   //expectation
@@ -41,7 +38,7 @@ test(" text of new-post should be -", () => {
 
 test("after deleting length of postData should be decrement ", () => {
   // test data
-  let action = deletePostActionCreator(1);
+  let action = deletePost(1);
   //action
   let newState = profileReducer(state, action);
   //expectation
