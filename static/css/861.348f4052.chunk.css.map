@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/861.348f4052.chunk.css","mappings":"AAAA,0BACE,kBACF","sources":["Components/News/NewsComp/NewsComp.module.css"],"sourcesContent":[".newsItem {\r\n  margin-bottom: 10px;\r\n}\r\n.newsLi {\r\n}\r\n"],"names":[],"sourceRoot":""}
