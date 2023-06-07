@@ -1,7 +1,7 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
 import "./App.css";
 import {
-  BrowserRouter,
+  HashRouter,
   Navigate,
   Route,
   Routes,
@@ -45,7 +45,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter basename="/">
       <div className="app-wrapper">
         <HeaderContainer />
         <NavbarContainer />
@@ -73,7 +73,7 @@ const App = () => {
           </Suspense>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
