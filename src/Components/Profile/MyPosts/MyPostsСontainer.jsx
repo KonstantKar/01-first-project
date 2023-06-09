@@ -10,7 +10,6 @@ import {
 import { render } from "react-dom";
 
 const MyPostsContainer = () => {
-  console.log("render");
   const dispatch = useDispatch();
   const postData = useSelector((state) => state.profile.postData);
   const newPostText = useSelector((state) => state.profile.newPostText);

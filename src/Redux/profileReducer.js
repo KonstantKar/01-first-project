@@ -43,11 +43,20 @@ const profileSlice = createSlice({
     setStatus: (state, action) => {
       state.status = action.payload;
     },
+    setPhoto: (state, action) => {
+      state.profile.photos = action.payload;
+    },
   },
 });
 
-export const { addPost, updateNewPostText, deletePost, setProfile, setStatus } =
-  profileSlice.actions;
+export const {
+  addPost,
+  updateNewPostText,
+  deletePost,
+  setProfile,
+  setStatus,
+  setPhoto,
+} = profileSlice.actions;
 
 export const getProfileTC = (userId) => (dispatch) => {
   profileAPI.getAxiosProfile(userId).then((data) => {
@@ -65,6 +74,14 @@ export const updateStatusTC = (status) => (dispatch) => {
   profileAPI.updateStatus(status).then((data) => {
     if (data.resultCode === 0) {
       dispatch(setStatus(status));
+    }
+  });
+};
+
+export const safePhoto = (file) => (dispatch) => {
+  profileAPI.safePhoto(file).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(setPhoto(data.data.photos));
     }
   });
 };

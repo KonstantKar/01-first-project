@@ -1,12 +1,15 @@
 import { getProfileTC, getStatusTC } from "../../Redux/profileReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Profile";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ProfileContainer = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuth);
+  const authenticatedUserId = useSelector((state) => state.auth.data.id);
 
   const getProfile = () => {
     dispatch(getProfileTC(userId));
@@ -17,14 +20,11 @@ const ProfileContainer = () => {
   };
 
   useEffect(() => {
-    getProfile();
-  }, [userId]); // Обновление профиля при изменении значения параметра
+    getProfile(userId);
+    getUsersStatus(userId);
+  }, [userId]);
 
-  useEffect(() => {
-    getUsersStatus();
-  }, [userId]); // Обновление статуса при изменении значения параметра
-
-  return <Profile />;
+  return <Profile isOwner={userId === String(authenticatedUserId)} />;
 };
 
 export default ProfileContainer;

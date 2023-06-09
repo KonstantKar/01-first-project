@@ -47,7 +47,7 @@ const UsersContainer = () => {
               previousLabel={"Previous"}
               nextLabel={"Next"}
               breakLabel={"..."}
-              pageCount={totalPages}
+              pageCount={100}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={handlePageChange}
