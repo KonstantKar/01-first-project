@@ -69,6 +69,7 @@ const App = () => {
                   )
                 }
               />
+              <Route path="*" element={<div>Страница не найдена</div>} />
             </Routes>
           </Suspense>
         </div>

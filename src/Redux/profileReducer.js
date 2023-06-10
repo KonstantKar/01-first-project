@@ -86,4 +86,15 @@ export const safePhoto = (file) => (dispatch) => {
   });
 };
 
+export const changeContactsTC = (profile) => (dispatch, getState) => {
+  const authenticatedUserId = getState().auth.data.id;
+  profileAPI.changeContacts(profile).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(getProfileTC(authenticatedUserId));
+    } else {
+      alert("В контакты нужно вводить URL-адрес");
+    }
+  });
+};
+
 export default profileSlice.reducer;

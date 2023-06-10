@@ -73,6 +73,19 @@ export const profileAPI = {
         return response.data;
       });
   },
+
+  //Функция после превращения в async
+  /*  async changeContacts(profile) {
+    const response = await instance.put(`/profile`, profile);
+    return response.data;
+  },
+}; */
+
+  changeContacts(profile) {
+    return instance.put(`/profile`, profile).then((response) => {
+      return response.data;
+    });
+  },
 };
 
 export const loginAPI = {

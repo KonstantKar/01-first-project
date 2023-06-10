@@ -5,14 +5,16 @@ import ProfileLoader from "../../Loader/ProfileLoader";
 import ProfileStatus from "./ProfileStatus";
 import { useDispatch, useSelector } from "react-redux";
 import { safePhoto } from "../../../Redux/profileReducer";
+import ProfileDataForm from "./ProfileDataForm";
 
 const ProfileInfo = (props) => {
   const dispatch = useDispatch();
-  const [editMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const profile = useSelector((state) => state.profile.profile);
   const onMainPhotoSelected = (e) => {
     dispatch(safePhoto(e.target.files[0]));
   };
+
   if (!profile) {
     return <ProfileLoader />;
   }
@@ -32,9 +34,17 @@ const ProfileInfo = (props) => {
       </div>
       {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
       {editMode ? (
-        <ProfileDataForm profile={profile} />
+        <ProfileDataForm
+          profile={profile}
+          Contact={Contact}
+          setEditMode={setEditMode}
+        />
       ) : (
-        <ProfileData profile={profile} />
+        <ProfileData
+          profile={profile}
+          isOwner={props.isOwner}
+          setEditMode={setEditMode}
+        />
       )}
       <div>
         <b>Статус</b>
@@ -44,7 +54,7 @@ const ProfileInfo = (props) => {
   );
 };
 
-const ProfileData = ({ profile }) => {
+const ProfileData = ({ profile, isOwner, setEditMode }) => {
   return (
     <div className={s.container}>
       <div className={s.descriptionBlock}>
@@ -57,7 +67,7 @@ const ProfileData = ({ profile }) => {
         </div>
         {profile.lookingForAJob && (
           <div className={s.aboutMe}>
-            <b>Знания и умения</b>:{profile.lookingForAJob ? "да" : "нет"}
+            <b>Знания и умения</b>:{profile.lookingForAJobDescription}
           </div>
         )}
         <div className={s.contacts}>
@@ -75,50 +85,18 @@ const ProfileData = ({ profile }) => {
               />
             );
           })}
+          {isOwner && (
+            <button onClick={() => setEditMode(true)}>
+              Сменить информацию
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-const ProfileDataForm = ({ profile }) => {
-  return (
-    <div className={s.container}>
-      <div className={s.descriptionBlock}>
-        <div className={s.fullName}>{profile.fullName}</div>
-        <div className={s.aboutMe}>
-          <b>Обо мне</b>:{profile.aboutMe}
-        </div>
-        <div className={s.aboutMe}>
-          <b>Ищу работу?</b>:{profile.lookingForAJob ? "да" : "нет"}
-        </div>
-        {profile.lookingForAJob && (
-          <div className={s.aboutMe}>
-            <b>Знания и умения</b>:{profile.lookingForAJob ? "да" : "нет"}
-          </div>
-        )}
-        <div className={s.contacts}>
-          <b>Контакты</b>:
-          {Object.keys(profile.contacts).map((key) => {
-            return (
-              <Contact
-                key={key}
-                contactTitle={key}
-                contactValue={
-                  profile.contacts.hasOwnProperty(key)
-                    ? profile.contacts[key]
-                    : ""
-                }
-              />
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Contact = ({ contactTitle, contactValue }) => {
+export const Contact = ({ contactTitle, contactValue }) => {
   return (
     <div>
       <b>{contactTitle}</b>: {contactValue}
