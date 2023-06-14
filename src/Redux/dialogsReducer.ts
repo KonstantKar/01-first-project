@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { DialogData, dialogState, MessageData } from "./types";
 
-const initialState = {
+const initialState: dialogState = {
   dialogsData: [
     { id: 1, name: "Polya" },
     { id: 2, name: "Amur" },
@@ -20,15 +21,15 @@ const dialogsSlice = createSlice({
   name: "dialogs",
   initialState,
   reducers: {
-    addMessage: (state, action) => {
-      const newMessage = {
+    addMessage: (state, action: PayloadAction<any>) => {
+      const newMessage: MessageData = {
         id: 4,
         message: state.newMessageText,
       };
       state.messageData.push(newMessage);
       state.newMessageText = "";
     },
-    updateNewMessageText: (state, action) => {
+    updateNewMessageText: (state, action: PayloadAction<any>) => {
       state.newMessageText = action.payload;
     },
   },

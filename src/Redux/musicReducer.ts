@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { musicState } from "./types";
 
-const initialState = {
+const initialState: musicState = {
   songs: [
     {
       id: 1,
@@ -45,13 +46,13 @@ const musicSlice = createSlice({
   name: "music",
   initialState,
   reducers: {
-    addSong: (state, action) => {
+    addSong: (state, action: PayloadAction<number>) => {
       const song = state.songs.find((song) => song.id === action.payload);
       if (song) {
         song.followed = true;
       }
     },
-    deleteSong: (state, action) => {
+    deleteSong: (state, action: PayloadAction<number>) => {
       const song = state.songs.find((song) => song.id === action.payload);
       if (song) {
         song.followed = false;

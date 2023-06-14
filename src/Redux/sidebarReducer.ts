@@ -1,4 +1,7 @@
-let initialState = {
+import { PayloadAction } from "@reduxjs/toolkit";
+import { sidebarState } from "./types";
+
+let initialState: sidebarState = {
   navBarData: [
     { id: " ", navName: "Profile", to: "profile" },
     { id: " ", navName: "Dialogs", to: "dialogs" },
@@ -10,7 +13,7 @@ let initialState = {
   ],
 };
 
-const sidebarReducer = (state = initialState, action) => {
+const sidebarReducer = (state = initialState, action: PayloadAction<any>) => {
   return state;
 };
 export default sidebarReducer;
