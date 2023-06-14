@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Loader.module.css";
 
-const ProfileLoader = () => {
+const ProfileLoader: React.FC = () => {
   return (
     <div>
       <div className={s.loader}>

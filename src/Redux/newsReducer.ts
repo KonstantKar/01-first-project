@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { newsState } from "./types";
 
 const initialState: newsState = {
-  news: null,
+  news: [],
 };
 
 const newsSlice = createSlice({

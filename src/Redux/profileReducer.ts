@@ -60,8 +60,8 @@ export const {
 } = profileSlice.actions;
 
 export const getProfileTC =
-  (userId: number): ThunkAction<void, ProfileState, unknown, any> =>
-  async (dispatch) => {
+  (userId: any): ThunkAction<void, ProfileState, unknown, any> =>
+  async (dispatch: any) => {
     try {
       const data = await profileAPI.getAxiosProfile(userId);
       dispatch(setProfile(data));
@@ -71,7 +71,7 @@ export const getProfileTC =
   };
 
 export const getStatusTC =
-  (userId: number): ThunkAction<void, ProfileState, unknown, any> =>
+  (userId: any): ThunkAction<void, ProfileState, unknown, any> =>
   (dispatch: any) => {
     profileAPI.getStatus(userId).then((data) => {
       dispatch(setStatus(data));

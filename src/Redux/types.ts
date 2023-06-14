@@ -39,7 +39,13 @@ export interface songs {
 }
 //-------------------------------------------------------newsReducer----------------------------------------------
 export interface newsState {
-  news: null;
+  news: newsData[];
+}
+export interface newsData {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
 }
 
 //-------------------------------------------------------profileTypes--------------------------------------------

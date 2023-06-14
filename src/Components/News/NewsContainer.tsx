@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import News from "./News";
 import { setNews } from "../../Redux/newsReducer";
 import { useEffect } from "react";
-import PrivateRoute from "../../PrivateRoute/PrivateRoute";
+import PrivateRoute from "../../PrivateRoute/PrivateRoute.js";
+import React, { RootState } from "../../Redux/redux-store";
 
 const NewsContainer = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 
   const getNews = () => {
     fetch("https://jsonplaceholder.typicode.com/posts")
