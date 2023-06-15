@@ -1,8 +1,13 @@
 import React from "react";
 import Loader from "../../Loader/Loader";
 import s from "./SingleNews.module.css";
+import { newsData } from "../../../Redux/types";
 
-const SingleNews = (props) => {
+interface SingleNewsProps {
+  state: newsData | null;
+}
+
+const SingleNews: React.FC<SingleNewsProps> = (props) => {
   if (!props.state) {
     return <Loader />;
   }
