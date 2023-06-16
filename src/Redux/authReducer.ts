@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
-import { authAPI, loginAPI, unLoginAPI } from "../API/api";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { authAPI, loginAPI, ResultCodesEnum, unLoginAPI } from "../API/api";
 import { AuthState } from "./types";
 
 const initialState: AuthState = {
@@ -27,36 +27,52 @@ const authSlice = createSlice({
 export const { setAuthUserData, setIsAuth, setIsInitialized } =
   authSlice.actions;
 
-export const getAuthAccountDataTC =
-  (): ThunkAction<void, AuthState, unknown, any> => (dispatch: any) => {
-    authAPI.getAxiosMyAccount().then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setAuthUserData(data.data));
-        dispatch(setIsAuth(true));
-      }
-    });
-  };
+export const getAuthAccountDataTC = createAsyncThunk<
+  Promise<void>,
+  void,
+  { state: AuthState }
+>("auth/getAuthAccountData", async (_, thunkAPI) => {
+  try {
+    const response = await authAPI.getAxiosMyAccount();
+    if (response.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(setAuthUserData(response.data));
+      thunkAPI.dispatch(setIsAuth(true));
+    }
+  } catch (error) {
+    console.error("Ошибка при получении данных аккаунта:", error);
+    throw error;
+  }
+});
 
-export const loginAccountTC =
-  (values: any): ThunkAction<void, AuthState, unknown, any> =>
-  (dispatch: any) => {
-    loginAPI.getAxiosLogin(values).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setIsAuth(true));
-        dispatch(setIsInitialized(true));
-      } else {
-        alert("Попробуй ещё раз");
-      }
-    });
-  };
+export const loginAccountTC = createAsyncThunk<
+  Promise<void>,
+  any,
+  { state: AuthState }
+>("auth/loginAccount", async (values, thunkAPI) => {
+  try {
+    const response = await loginAPI.getAxiosLogin(values);
+    if (response.data.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(setIsAuth(true));
+      thunkAPI.dispatch(setIsInitialized(true));
+    }
+  } catch (error) {
+    alert("Пароль или почта неверны");
+  }
+});
 
-export const leaveAccountTC =
-  (): ThunkAction<void, AuthState, unknown, any> => (dispatch: any) => {
-    unLoginAPI.deleteAxiosLogin().then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setIsAuth(false));
-      }
-    });
-  };
+export const leaveAccountTC = createAsyncThunk<
+  Promise<void>,
+  void,
+  { state: AuthState }
+>("auth/leaveAccount", async (_, thunkAPI) => {
+  try {
+    const response = await unLoginAPI.deleteAxiosLogin();
+    if (response.data.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(setIsAuth(false));
+    }
+  } catch (error) {
+    alert("Ошибка при выходе из аккаунта");
+  }
+});
 
 export default authSlice.reducer;

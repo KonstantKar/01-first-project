@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
-import { followAPI, unFollowAPI } from "../API/api";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { followAPI, ResultCodesEnum, unFollowAPI } from "../API/api";
 import { UsersState } from "./types";
 
 const initialState: UsersState = {
@@ -39,28 +39,34 @@ const usersSlice = createSlice({
 export const { follow, unfollow, setUsers, setCurrentPages, setHideButton } =
   usersSlice.actions;
 
-export const followTC = (
-  id: number
-): ThunkAction<void, UsersState, unknown, any> => {
-  return (dispatch: any) => {
-    followAPI.getAxiosFollow(id).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(follow(id));
-      }
-    });
-  };
-};
+export const followTC = createAsyncThunk<
+  Promise<void>,
+  number,
+  { state: UsersState }
+>("users/follow", async (id, thunkAPI) => {
+  try {
+    const response = await followAPI.getAxiosFollow(id);
+    if (response.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(follow(id));
+    }
+  } catch (error) {
+    alert("Ошибка при выполнении подписки");
+  }
+});
 
-export const unFollowTC = (
-  id: number
-): ThunkAction<void, UsersState, unknown, any> => {
-  return (dispatch: any) => {
-    unFollowAPI.getAxiosUnfollow(id).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(unfollow(id));
-      }
-    });
-  };
-};
+export const unFollowTC = createAsyncThunk<
+  Promise<void>,
+  number,
+  { state: UsersState }
+>("users/unfollow", async (id, thunkAPI) => {
+  try {
+    const responce = await unFollowAPI.getAxiosUnfollow(id);
+    if (responce.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(unfollow(id));
+    }
+  } catch (error) {
+    alert("Ошибка при выполнении отписки");
+  }
+});
 
 export default usersSlice.reducer;

@@ -7,7 +7,6 @@ import {
   deletePost,
   updateNewPostText,
 } from "../../../Redux/profileReducer";
-import { render } from "react-dom";
 
 const MyPostsContainer = () => {
   const dispatch = useDispatch();

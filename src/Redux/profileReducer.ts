@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
-import { profileAPI } from "../API/api";
-import { Photos, ProfileState, PostData } from "./types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { profileAPI, ResultCodesEnum } from "../API/api";
+import { ProfileState, PostData } from "./types";
+import { RootState } from "./redux-store";
 
 const initialState: ProfileState = {
   postData: [
@@ -18,10 +19,10 @@ const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    addPost: (state, action: PayloadAction<string>) => {
+    addPost: (state) => {
       const newPost: PostData = {
         id: 5,
-        message: action.payload,
+        message: state.newPostText,
         likes: "0",
       };
       state.postData.push(newPost);
@@ -59,56 +60,80 @@ export const {
   setPhoto,
 } = profileSlice.actions;
 
-export const getProfileTC =
-  (userId: any): ThunkAction<void, ProfileState, unknown, any> =>
-  async (dispatch: any) => {
-    try {
-      const data = await profileAPI.getAxiosProfile(userId);
-      dispatch(setProfile(data));
-    } catch (error) {
-      console.error("Ошибка при получении профиля:", error);
+export const getProfileTC = createAsyncThunk<
+  Promise<void>,
+  any,
+  { state: RootState }
+>("profile/getProfile", async (userId, thunkAPI) => {
+  try {
+    const response = await profileAPI.getAxiosProfile(userId);
+    thunkAPI.dispatch(setProfile(response));
+  } catch (error) {
+    console.log("Ошибка при получении профиля");
+  }
+});
+
+export const getStatusTC = createAsyncThunk<
+  Promise<void>,
+  number,
+  { state: ProfileState }
+>("profile/getStatus", async (userId, thunkAPI) => {
+  try {
+    const response = await profileAPI.getStatus(userId);
+    thunkAPI.dispatch(setStatus(response));
+  } catch {
+    console.log("Ошибка при получении статуса");
+  }
+});
+
+export const updateStatusTC = createAsyncThunk<
+  Promise<void>,
+  any,
+  { state: ProfileState }
+>("profile/updateStatus", async (status, thunkAPI) => {
+  try {
+    const response = await profileAPI.updateStatus(status);
+    if (response.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(setStatus(status));
     }
-  };
+  } catch (error) {
+    alert("Ошибка при обновлении статуса");
+  }
+});
 
-export const getStatusTC =
-  (userId: any): ThunkAction<void, ProfileState, unknown, any> =>
-  (dispatch: any) => {
-    profileAPI.getStatus(userId).then((data) => {
-      dispatch(setStatus(data));
-    });
-  };
+export const safePhoto = createAsyncThunk<
+  Promise<void>,
+  any,
+  { state: ProfileState }
+>("profile/savePhoto", async (file, thunkAPI) => {
+  try {
+    const response = await profileAPI.savePhoto(file);
+    if (response.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(setPhoto(response.data.photos));
+    }
+  } catch (error) {
+    console.error("Ошибка при сохранении фото:", error);
+    throw error;
+  }
+});
 
-export const updateStatusTC =
-  (status: string): ThunkAction<void, ProfileState, unknown, any> =>
-  (dispatch: any) => {
-    profileAPI.updateStatus(status).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setStatus(status));
-      }
-    });
-  };
-
-export const safePhoto =
-  (file: any): ThunkAction<void, ProfileState, unknown, any> =>
-  (dispatch: any) => {
-    profileAPI.savePhoto(file).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setPhoto(data.data.photos));
-      }
-    });
-  };
-
-export const changeContactsTC =
-  (profile: any): ThunkAction<void, ProfileState, unknown, any> =>
-  (dispatch: any, getState: any) => {
-    const authenticatedUserId = getState().auth.data.id;
-    profileAPI.changeContacts(profile).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(getProfileTC(authenticatedUserId));
-      } else {
-        alert("В контакты нужно вводить URL-адрес");
-      }
-    });
-  };
+export const changeContactsTC = createAsyncThunk<
+  Promise<void>,
+  any,
+  { state: RootState }
+>("profile/changeContacts", async (profile, thunkAPI) => {
+  try {
+    const authenticatedUserId = thunkAPI.getState().auth.data.id;
+    const response = await profileAPI.changeContacts(profile);
+    if (response.resultCode === ResultCodesEnum.Success) {
+      thunkAPI.dispatch(getProfileTC(authenticatedUserId));
+    } else {
+      alert("В контакты нужно вводить URL-адрес");
+    }
+  } catch (error) {
+    console.error("Ошибка при изменении контактов:", error);
+    throw error;
+  }
+});
 
 export default profileSlice.reducer;

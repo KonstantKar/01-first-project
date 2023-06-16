@@ -1,15 +1,16 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-
-interface User {
-  id: number;
-  name: string;
-  // Дополнительные свойства пользователя
-}
+import { User } from "../Redux/types";
 
 interface ResponseData<T> {
   data: T;
-  resultCode: number;
+  resultCode: ResultCodesEnum;
   // Дополнительные свойства ответа
+}
+
+//Перечисление строк или чисел - enum
+export enum ResultCodesEnum {
+  Success = 0,
+  Error = 1,
 }
 
 const instance: AxiosInstance = axios.create({
@@ -29,17 +30,6 @@ export const usersAPI = {
       });
   },
 };
-
-//Пока не понимаю почему не работает данный код снизу
-/*export const usersAPI = {
-  getAxiosUsers(page: number, pageSize: number): Promise<User[]> {
-    return instance
-      .get(`/users?page=${page}&count=${pageSize}`)
-      .then((response: AxiosResponse<ResponseData<User[]>>) => {
-        return response.data.data;
-      });
-  },
-}; */
 
 export const followAPI = {
   getAxiosFollow(id: number): Promise<ResponseData<{}>> {
