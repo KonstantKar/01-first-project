@@ -21,7 +21,7 @@ const dialogsSlice = createSlice({
   name: "dialogs",
   initialState,
   reducers: {
-    addMessage: (state, action: PayloadAction<any>) => {
+    addMessage: (state) => {
       const newMessage: MessageData = {
         id: 4,
         message: state.newMessageText,

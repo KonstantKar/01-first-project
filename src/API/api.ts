@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { User } from "../Redux/types";
+import { User, UserData } from "../Redux/types";
 
 interface ResponseData<T> {
   data: T;
@@ -20,6 +20,8 @@ const instance: AxiosInstance = axios.create({
     "API-KEY": "6b6ecac8-d7f7-4477-87bb-015031017fed",
   },
 });
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 export const usersAPI = {
   getAxiosUsers(page: number, pageSize: number) {
@@ -52,14 +54,15 @@ export const unFollowAPI = {
 };
 
 export const authAPI = {
-  getAxiosMyAccount(): Promise<ResponseData<User>> {
+  getAxiosMyAccount(): Promise<ResponseData<UserData>> {
     return instance
       .get(`/auth/me`)
-      .then((response: AxiosResponse<ResponseData<User>>) => {
+      .then((response: AxiosResponse<ResponseData<UserData>>) => {
         return response.data;
       });
   },
 };
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 export const profileAPI = {
   getAxiosProfile(userId: number): Promise<ResponseData<User>> {
@@ -105,6 +108,8 @@ export const profileAPI = {
       });
   },
 };
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 export const loginAPI = {
   getAxiosLogin(values: {
