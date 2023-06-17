@@ -1,7 +1,13 @@
 import React from "react";
 import s from "./Post.module.css";
 
-const Post = (props) => {
+interface PostProps {
+  like: number | string;
+  message: string;
+  deletePost(): void;
+}
+
+const Post: React.FC<PostProps> = (props) => {
   return (
     <div className={s.item}>
       <img

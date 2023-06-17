@@ -75,7 +75,7 @@ export const getProfileTC = createAsyncThunk<
 
 export const getStatusTC = createAsyncThunk<
   Promise<void>,
-  number,
+  any,
   { state: ProfileState }
 >("profile/getStatus", async (userId, thunkAPI) => {
   try {

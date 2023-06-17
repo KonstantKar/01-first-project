@@ -6,13 +6,26 @@ import ProfileStatus from "./ProfileStatus";
 import { useDispatch, useSelector } from "react-redux";
 import { safePhoto } from "../../../Redux/profileReducer";
 import ProfileDataForm from "./ProfileDataForm";
+import { ProfileProps } from "../Profile";
+import { RootState } from "../../../Redux/redux-store";
 
-const ProfileInfo = (props) => {
+export interface ContactProps {
+  contactTitle: string;
+  contactValue: string;
+}
+
+interface ProfileDataProps {
+  profile: any;
+  isOwner: boolean;
+  setEditMode: any;
+}
+
+const ProfileInfo: React.FC<ProfileProps> = (props) => {
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
-  const profile = useSelector((state) => state.profile.profile);
-  const onMainPhotoSelected = (e) => {
-    dispatch(safePhoto(e.target.files[0]));
+  const profile = useSelector((state: RootState) => state.profile.profile);
+  const onMainPhotoSelected = (e: any) => {
+    dispatch<any>(safePhoto(e.target.files[0]));
   };
 
   if (!profile) {
@@ -54,7 +67,11 @@ const ProfileInfo = (props) => {
   );
 };
 
-const ProfileData = ({ profile, isOwner, setEditMode }) => {
+const ProfileData: React.FC<ProfileDataProps> = ({
+  profile,
+  isOwner,
+  setEditMode,
+}) => {
   return (
     <div className={s.container}>
       <div className={s.descriptionBlock}>
@@ -96,7 +113,10 @@ const ProfileData = ({ profile, isOwner, setEditMode }) => {
   );
 };
 
-export const Contact = ({ contactTitle, contactValue }) => {
+export const Contact: React.FC<ContactProps> = ({
+  contactTitle,
+  contactValue,
+}) => {
   return (
     <div>
       <b>{contactTitle}</b>: {contactValue}

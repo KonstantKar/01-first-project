@@ -1,27 +1,29 @@
+import React from "react";
 import { getProfileTC, getStatusTC } from "../../Redux/profileReducer";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Profile";
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { RootState } from "../../Redux/redux-store";
 
-const ProfileContainer = () => {
+const ProfileContainer: React.FC = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const navigate = useNavigate();
-  const isAuthenticated = useSelector((state) => state.auth.isAuth);
-  const authenticatedUserId = useSelector((state) => state.auth.data.id);
+  const authenticatedUserId = useSelector(
+    (state: RootState) => state.auth.data.id
+  );
 
   const getProfile = () => {
-    dispatch(getProfileTC(userId));
+    dispatch<any>(getProfileTC(userId));
   };
 
   const getUsersStatus = () => {
-    dispatch(getStatusTC(userId));
+    dispatch<any>(getStatusTC(userId));
   };
 
   useEffect(() => {
-    getProfile(userId);
-    getUsersStatus(userId);
+    getProfile();
+    getUsersStatus();
   }, [userId]);
 
   return <Profile isOwner={userId === String(authenticatedUserId)} />;

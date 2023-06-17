@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,16 +7,18 @@ import {
   deletePost,
   updateNewPostText,
 } from "../../../Redux/profileReducer";
+import { RootState } from "../../../Redux/redux-store";
 
-const MyPostsContainer = () => {
+const MyPostsContainer: React.FC = () => {
   const dispatch = useDispatch();
-  const postData = useSelector((state) => state.profile.postData);
-  const newPostText = useSelector((state) => state.profile.newPostText);
+  const postData = useSelector((state: RootState) => state.profile.postData);
+  const newPostText = useSelector(
+    (state: RootState) => state.profile.newPostText
+  );
   let postElement = postData.map((el) => {
     return (
       <Post
         key={el.id}
-        id={el.id}
         message={el.message}
         like={el.likes}
         deletePost={() => dispatch(deletePost(el.id))}
@@ -28,10 +30,10 @@ const MyPostsContainer = () => {
     dispatch(addPost());
   };
 
-  let newPostTextArea = React.createRef();
+  let newPostTextArea = useRef<HTMLTextAreaElement>(null);
 
   let onPostChange = () => {
-    let text = newPostTextArea.current.value;
+    let text = newPostTextArea.current!.value;
     dispatch(updateNewPostText(text));
   };
 

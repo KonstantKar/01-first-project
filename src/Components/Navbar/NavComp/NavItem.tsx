@@ -1,7 +1,13 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./NavItem.module.css";
 
-const NavItem = (props) => {
+interface NavItemProps {
+  to: string;
+  navName: string;
+}
+
+const NavItem: React.FC<NavItemProps> = (props) => {
   return (
     <div>
       <NavLink
@@ -13,4 +19,5 @@ const NavItem = (props) => {
     </div>
   );
 };
+
 export default NavItem;

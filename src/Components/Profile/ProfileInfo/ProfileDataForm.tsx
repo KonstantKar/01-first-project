@@ -1,18 +1,29 @@
 import * as Yup from "yup";
+import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import s from "./ProfileInfo.module.css";
 import { useDispatch } from "react-redux";
 import { changeContactsTC } from "../../../Redux/profileReducer";
+import { ContactProps } from "./ProfileInfo";
 
-const ProfileDataForm = ({ profile, setEditMode }) => {
+interface ProfileDataFormProps {
+  profile: any;
+  setEditMode(value: boolean): void;
+  Contact: React.FC<ContactProps>;
+}
+
+const ProfileDataForm: React.FC<ProfileDataFormProps> = ({
+  profile,
+  setEditMode,
+}) => {
   const dispatch = useDispatch();
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Поле обязательно для заполнения"),
   });
 
-  const handleSubmit = (values) => {
-    dispatch(changeContactsTC(values));
+  const handleSubmit = (values: any) => {
+    dispatch<any>(changeContactsTC(values));
     setEditMode(false);
     console.log(values);
   };
@@ -79,22 +90,5 @@ const ProfileDataForm = ({ profile, setEditMode }) => {
     </Formik>
   );
 };
-
-//Так выглядела итерация по массиву до превращения её в вид, читаемый FORMIK
-/*             <div className={s.contacts}>
-              <b>Контакты</b>:
-              {Object.keys(profile.contacts).map((key) => {
-                return (
-                  <Contact
-                    key={key}
-                    contactTitle={key}
-                    contactValue={
-                      profile.contacts.hasOwnProperty(key)
-                        ? profile.contacts[key]
-                        : ""
-                    }
-                  />
-                  
-                */
 
 export default ProfileDataForm;

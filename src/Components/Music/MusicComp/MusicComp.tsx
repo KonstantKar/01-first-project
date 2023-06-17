@@ -1,13 +1,24 @@
 import React from "react";
 import s from "./MusicComp.module.css";
 
-const MusicComp = (props) => {
-  let addSong = () => {
+interface MusicCompProps {
+  id: number;
+  songName: string;
+  artist: string;
+  followed: boolean;
+  addSong: (songID: number) => void;
+  deleteSong: (songID: number) => void;
+}
+
+const MusicComp: React.FC<MusicCompProps> = (props) => {
+  const addSong = () => {
     props.addSong(props.id);
   };
-  let deleteSong = () => {
+
+  const deleteSong = () => {
     props.deleteSong(props.id);
   };
+
   return (
     <div className={s.musicContainer}>
       <div className={s.songName}>{props.songName}</div>

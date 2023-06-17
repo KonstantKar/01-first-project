@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuthAccountDataTC, loginAccountTC } from "./Redux/authReducer";
 import Loader from "./Components/Loader/Loader";
 
-import HeaderContainer from "./Components/Header/HeaderContainer";
-import NavbarContainer from "./Components/Navbar/NavbarContainer";
+import Header from "./Components/Header/Header";
+import Navbar from "./Components/Navbar/Navbar";
 const ProfileContainer = lazy(() =>
   import("./Components/Profile/ProfileContainer")
 );
@@ -47,8 +47,8 @@ const App = () => {
   return (
     <HashRouter basename="/">
       <div className="app-wrapper">
-        <HeaderContainer />
-        <NavbarContainer />
+        <Header />
+        <Navbar />
         <div className="app-wrapper-content">
           <Suspense fallback={<Loader />}>
             <Routes>
