@@ -16,7 +16,7 @@ import Navbar from "./Components/Navbar/Navbar";
 const ProfileContainer = lazy(() =>
   import("./Components/Profile/ProfileContainer")
 );
-const Settings = lazy(() => import("./Components/Settings/Settings"));
+const TodoContainer = lazy(() => import("./Components/Todo/TodoContainer"));
 const DialogsContainer = lazy(() =>
   import("./Components/Dialogs/DialogsContainer")
 );
@@ -31,6 +31,10 @@ const LoginForm = lazy(() => import("./Components/Login/LoginForm"));
 const App = () => {
   const dispatch = useDispatch();
   const isInitialized = useSelector((state) => state.auth.isInitialized);
+
+  const handleSubmit = (values) => {
+    dispatch(loginAccountTC(values));
+  };
 
   const getAuthAccountData = () => {
     dispatch(getAuthAccountDataTC());
@@ -54,7 +58,7 @@ const App = () => {
               <Route path="/news/:newsId" element={<SingleNewsContainer />} />
               <Route path="/users" element={<UsersContainer />} />
               <Route path="/music" element={<MusicContainer />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route path="/todo" element={<TodoContainer />} />
               <Route
                 path="/login"
                 element={

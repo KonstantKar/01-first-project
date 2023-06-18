@@ -1,8 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage, FormikProps } from "formik";
-import { useDispatch } from "react-redux";
-import { loginAccountTC } from "../../Redux/authReducer";
 
 interface LoginFormValues {
   username: string;
@@ -11,8 +9,7 @@ interface LoginFormValues {
 
 const LoginForm: React.FC<{
   handleSubmit: (values: LoginFormValues) => void;
-}> = () => {
-  const dispatch = useDispatch();
+}> = (props) => {
   const initialValues: LoginFormValues = {
     username: "",
     password: "",
@@ -24,7 +21,7 @@ const LoginForm: React.FC<{
   });
 
   const handleSubmit = (values: LoginFormValues) => {
-    dispatch<any>(loginAccountTC(values));
+    props.handleSubmit(values);
   };
 
   return (
