@@ -1,5 +1,6 @@
 import s from "./TodoList.module.css";
 import React, { useState } from "react";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 interface TodoListProps {
   todo: Array<items>;
@@ -51,33 +52,40 @@ const TodoList: React.FC<TodoListProps> = ({ todo, setTodo }) => {
 
   return (
     <div className={s.container}>
-      {todo.map((el) => (
-        <div key={el.id} className={s.todoItem}>
-          {editMode == el.id ? (
-            <div>
-              {" "}
-              <input value={value} onChange={(e) => setValue(e.target.value)} />
+      <TransitionGroup>
+        {todo.map((el) => (
+          <CSSTransition key={el.id} classNames="todo" timeout={100}>
+            <div key={el.id} className={s.todoItem}>
+              {editMode == el.id ? (
+                <div>
+                  {" "}
+                  <input
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                </div>
+              ) : (
+                <div>{el.title}</div>
+              )}
+              {editMode == el.id ? (
+                <div>
+                  <button onClick={() => saveTodo(el.id)}>Сохранить</button>{" "}
+                </div>
+              ) : (
+                <div>
+                  <button onClick={() => deleteTodo(el.id)}>Удалить</button>
+                  <button onClick={() => statusTodo(el.id)}>
+                    Закрыть/ Открыть
+                  </button>
+                  <button onClick={() => editTodo(el.id, el.title)}>
+                    Редактировать
+                  </button>
+                </div>
+              )}
             </div>
-          ) : (
-            <div>{el.title}</div>
-          )}
-          {editMode == el.id ? (
-            <div>
-              <button onClick={() => saveTodo(el.id)}>Сохранить</button>{" "}
-            </div>
-          ) : (
-            <div>
-              <button onClick={() => deleteTodo(el.id)}>Удалить</button>
-              <button onClick={() => statusTodo(el.id)}>
-                Закрыть/ Открыть
-              </button>
-              <button onClick={() => editTodo(el.id, el.title)}>
-                Редактировать
-              </button>
-            </div>
-          )}
-        </div>
-      ))}
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </div>
   );
 };

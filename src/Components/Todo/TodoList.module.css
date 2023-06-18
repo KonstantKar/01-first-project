@@ -51,3 +51,45 @@
   background-color: #ffaa5b;
   color: white;
 }
+.todo-enter {
+  opacity: 0;
+}
+
+.todo-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.todo-exit {
+  opacity: 1;
+}
+
+.todo-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.todoItem {
+  animation: slideInFromRight 0.3s ease-in;
+}
+
+.todoItem-exit {
+  animation: slideOutToRight 0.3s ease-out;
+}
