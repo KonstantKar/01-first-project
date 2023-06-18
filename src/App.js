@@ -32,10 +32,6 @@ const App = () => {
   const dispatch = useDispatch();
   const isInitialized = useSelector((state) => state.auth.isInitialized);
 
-  const handleSubmit = (values) => {
-    dispatch(loginAccountTC(values));
-  };
-
   const getAuthAccountData = () => {
     dispatch(getAuthAccountDataTC());
   };
