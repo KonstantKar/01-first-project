@@ -1,22 +1,18 @@
 import React from "react";
 import UsersComp from "./UsersComp.jsx/UsersComp";
 import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/redux-store";
 
-const Users = () => {
-  const users = useSelector((state) => state.users.users);
-  let usersElements = users.map((el) => {
+const Users: React.FC = () => {
+  const users = useSelector((state: RootState) => state.users.users);
+  let usersElements = users.map((el: any) => {
     return (
       <UsersComp
         id={el.id}
         status={el.status}
         followed={el.followed}
         fullName={el.name}
-        location={el.location}
         fotoURL={el.photos.small}
-        follow={users.follow}
-        unFollow={users.unfollow}
-        hideButton={users.hideButton}
-        users={users}
       />
     );
   });

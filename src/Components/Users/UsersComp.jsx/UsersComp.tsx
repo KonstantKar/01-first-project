@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import s from "./UsersComp.module.css";
 import userPhoto from "../../../assets/images/ava.png";
 import { NavLink } from "react-router-dom";
 import { followTC, unFollowTC } from "../../../Redux/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../Redux/redux-store";
 
-const UsersComp = (props) => {
+interface UsersCompProps {
+  id: number;
+  fullName: string;
+  status: string;
+  fotoURL: any;
+  followed: boolean;
+}
+
+const UsersComp: React.FC<UsersCompProps> = (props) => {
   const dispatch = useDispatch();
-  const hideButton = useSelector((state) => state.users.hideButton);
+  const hideButton = useSelector((state: RootState) => state.users.hideButton);
 
   let follow = () => {
-    dispatch(followTC(props.id));
+    dispatch<any>(followTC(props.id));
   };
 
   let unFollow = () => {
-    dispatch(unFollowTC(props.id));
+    dispatch<any>(unFollowTC(props.id));
   };
 
   return (

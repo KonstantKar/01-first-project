@@ -5,19 +5,20 @@ import Users from "./Users";
 import ReactPaginate from "react-paginate";
 import s from "./UsersContainer.module.css";
 import Loader from "../Loader/Loader";
-import { usersAPI } from "../../API/api.ts";
-import PrivateRoute from "../../PrivateRoute/PrivateRoute";
+import { usersAPI } from "../../API/api";
+import PrivateRoute from "../../PrivateRoute/PrivateRoute.js";
+import { RootState } from "../../Redux/redux-store";
 
-const UsersContainer = () => {
+const UsersContainer: React.FC = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [pageSize, setPageSize] = useState(4); // Количество пользователей на странице
   const [isLoading, setIsLoading] = useState(false); // Состояние для отображения загрузки\
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 
-  const getUsersData = (page) => {
+  const getUsersData = (page: number) => {
     usersAPI.getAxiosUsers(page, pageSize).then((data) => {
       dispatch(setUsers(data.items));
       setTotalPages(Math.ceil(data.totalCount / pageSize));
@@ -29,7 +30,7 @@ const UsersContainer = () => {
     getUsersData(currentPage);
   }, [currentPage]);
 
-  const handlePageChange = (selectedPage) => {
+  const handlePageChange = (selectedPage: any) => {
     const newCurrentPage = selectedPage.selected + 1;
     dispatch(setCurrentPages(newCurrentPage)); // Обновляем currentPage в Redux
     setCurrentPage(newCurrentPage); // Обновляем текущую страницу локально
