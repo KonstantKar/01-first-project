@@ -23,16 +23,6 @@ const TodoList: React.FC<TodoListProps> = ({ todo, setTodo }) => {
     setTodo(newTodo);
   }
 
-  function statusTodo(id: number) {
-    let newTodo = todo.filter((el) => {
-      if (el.id == id) {
-        el.status = !el.status;
-      }
-      return el;
-    });
-    setTodo(newTodo);
-  }
-
   function editTodo(id: number, title: string) {
     setEditMode(id);
     //Значением инпута становится уже существующий title
@@ -74,9 +64,6 @@ const TodoList: React.FC<TodoListProps> = ({ todo, setTodo }) => {
               ) : (
                 <div>
                   <button onClick={() => deleteTodo(el.id)}>Удалить</button>
-                  <button onClick={() => statusTodo(el.id)}>
-                    Закрыть/ Открыть
-                  </button>
                   <button onClick={() => editTodo(el.id, el.title)}>
                     Редактировать
                   </button>

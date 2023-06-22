@@ -8,7 +8,7 @@ import Loader from "../Loader/Loader";
 import { usersAPI } from "../../API/api";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute.js";
 import { RootState } from "../../Redux/redux-store";
-
+import Container from "@mui/material/Container";
 const UsersContainer: React.FC = () => {
   const dispatch = useDispatch();
 
