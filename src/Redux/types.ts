@@ -105,4 +105,5 @@ export interface ShopItem {
   productName: string;
   img: any;
   price: number;
+  description: string;
 }

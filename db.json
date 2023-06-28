@@ -2,21 +2,59 @@
   "catalogData": [
     {
       "id": 1,
-      "productName": "Пальто",
+      "productName": "Пальто мужское",
       "price": 10,
-      "img": "https://cdn1.ozone.ru/s3/multimedia-l/6139973241.jpg"
+      "img": "https://cdn1.ozone.ru/s3/multimedia-l/6139973241.jpg",
+      "description": "Погрузитесь в атмосферу безукоризненного стиля и непреходящей элегантности с нашим великолепным мужским пальто."
     },
     {
       "id": 2,
-      "productName": "Юбка",
+      "productName": "Кожаная куртка",
       "price": 20,
-      "img": "http://g04.a.alicdn.com/kf/HTB1yk06IVXXXXcYaXXXq6xXFXXXE/2015-zhenskiy-simpatichnye-stil-letnie-yubki-mnogih-pechat-zhenskaya-podarkov-zhenskiy-odezhda-besplatnaya-dostavka.jpg"
+      "img": "https://ae04.alicdn.com/kf/He10ff270200d48259ba619b36e094d3dy.jpg",
+      "description": "Lorem"
     },
     {
       "id": 3,
-      "productName": "Пальто",
+      "productName": "Пальто женское",
       "price": 30,
-      "img": "https://diamondelectric.ru/images/473/472469/palto_bonprix_1.jpg"
+      "img": "https://diamondelectric.ru/images/473/472469/palto_bonprix_1.jpg",
+      "description": "Lorem"
+    },
+    {
+      "id": 4,
+      "productName": "Кардиган женский",
+      "price": 15,
+      "img": "https://www.vitoricci.ru/images/130881613263769320-0.jpg",
+      "description": "Lorem"
+    },
+    {
+      "id": 5,
+      "productName": "Ветровка унисекс",
+      "price": 15,
+      "img": "https://files.toomanygifts.ru/images/media/cache/product_full/product_image/50f0/63da154982521354422489.jpg",
+      "description": "Lorem"
+    },
+    {
+      "id": 6,
+      "productName": "Пуховик мужской",
+      "price": 45,
+      "img": "https://i.ebayimg.com/00/s/ODAwWDgwMA==/z/7ZQAAOSwXrld1SiU/$_57.JPG?set_id=8800005007",
+      "description": "Lorem"
+    },
+    {
+      "id": 7,
+      "productName": "Пуховик женский",
+      "price": 40,
+      "img": "https://cdn.yoox.biz/41/41881762BG_14_F.JPG",
+      "description": "Lorem"
+    },
+    {
+      "id": 8,
+      "productName": "Парка женская",
+      "price": 50,
+      "img": "https://www.terra-jeans.ru/images/product_images/info_images/482_0.png",
+      "description": "Lorem"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import s from "./TodoContainer.module.css";
 import React, { useState } from "react";
-import AddTodo from "./AddTodo";
-import TodoList from "./TodoList";
+import AddTodo from "./AddTodo/AddTodo";
+import TodoList from "./TodoList/TodoList";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute.js";
 import { RootState } from "../../Redux/redux-store";
 import { useSelector } from "react-redux";

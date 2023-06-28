@@ -22,6 +22,9 @@ const SingleNewsContainer = lazy(() =>
 );
 const LoginForm = lazy(() => import("./Components/Login/LoginForm"));
 const ShopContainer = lazy(() => import("./Components/Shop/ShopContainer"));
+const ProductDetail = lazy(() =>
+  import("./Components/Shop/ProductDetail/ProductDetail")
+);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -54,7 +57,8 @@ const App = () => {
               <Route path="/users" element={<UsersContainer />} />
               <Route path="/music" element={<MusicContainer />} />
               <Route path="/todo" element={<TodoContainer />} />
-              <Route path="/shop" element={<ShopContainer />} />
+              <Route path="/shop/" element={<ShopContainer />} />
+              <Route path="/shop/:shopId" element={<ProductDetail />} />
               <Route
                 path="/login"
                 element={

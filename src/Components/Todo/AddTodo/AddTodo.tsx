@@ -14,7 +14,7 @@ interface items {
 
 const AddTodo: React.FC<TodoListProps> = ({ todo, setTodo }) => {
   const [value, setValue] = useState("");
-  function saveTodo() {
+  const saveTodo = () => {
     //Так как наш id это еще и key, то мы должны каждому новому туду давать непохожий id (ЛИБО ИСПОЛЬЗОВАТЬ БИБЛИОТЕКУ UUID)
     const maxId = todo.reduce((max, todo) => Math.max(max, todo.id), 0);
     const newTodo = {
@@ -24,7 +24,7 @@ const AddTodo: React.FC<TodoListProps> = ({ todo, setTodo }) => {
     };
     setTodo([...todo, newTodo]);
     setValue("");
-  }
+  };
 
   return (
     <div className={s.container}>
