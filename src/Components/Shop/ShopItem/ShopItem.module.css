@@ -1,0 +1,38 @@
+.itemInfo {
+  border: 1px solid #ccc;
+  margin: 20px;
+  padding: 20px;
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.itemInfo h2 {
+  margin-top: 0;
+}
+
+.itemInfo img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.itemInfo p {
+  margin: 10px 0;
+}
+
+.itemInfo button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.itemInfo button:hover {
+  background-color: #0056b3;
+}

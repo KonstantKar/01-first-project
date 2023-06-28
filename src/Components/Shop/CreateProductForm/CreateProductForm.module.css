@@ -1,0 +1,14 @@
+.form {
+  margin: 20px;
+}
+.form input {
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  transition: border-color 0.4s easel;
+  border: 1 px solid transparent;
+}
+
+.form input:focus {
+  border: 1px solid lightblue;
+}

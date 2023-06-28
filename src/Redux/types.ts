@@ -95,3 +95,14 @@ export interface Photos {
   small: null;
   large: null;
 }
+
+//----------------------------------------------------shopTypes----------------------------------------------
+export interface ShopState {
+  catalog: ShopItem[];
+}
+export interface ShopItem {
+  id: number;
+  productName: string;
+  img: any;
+  price: number;
+}

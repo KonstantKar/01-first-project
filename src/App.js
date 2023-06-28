@@ -1,12 +1,6 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
 import "./App.css";
-import {
-  HashRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthAccountDataTC, loginAccountTC } from "./Redux/authReducer";
 import Loader from "./Components/Loader/Loader";
@@ -27,6 +21,7 @@ const SingleNewsContainer = lazy(() =>
   import("./Components/News/SingleNews/SingleNewsContainer")
 );
 const LoginForm = lazy(() => import("./Components/Login/LoginForm"));
+const ShopContainer = lazy(() => import("./Components/Shop/ShopContainer"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -59,6 +54,7 @@ const App = () => {
               <Route path="/users" element={<UsersContainer />} />
               <Route path="/music" element={<MusicContainer />} />
               <Route path="/todo" element={<TodoContainer />} />
+              <Route path="/shop" element={<ShopContainer />} />
               <Route
                 path="/login"
                 element={

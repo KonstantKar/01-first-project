@@ -1,0 +1,22 @@
+{
+  "catalogData": [
+    {
+      "id": 1,
+      "productName": "Пальто",
+      "price": 10,
+      "img": "https://cdn1.ozone.ru/s3/multimedia-l/6139973241.jpg"
+    },
+    {
+      "id": 2,
+      "productName": "Юбка",
+      "price": 20,
+      "img": "http://g04.a.alicdn.com/kf/HTB1yk06IVXXXXcYaXXXq6xXFXXXE/2015-zhenskiy-simpatichnye-stil-letnie-yubki-mnogih-pechat-zhenskaya-podarkov-zhenskiy-odezhda-besplatnaya-dostavka.jpg"
+    },
+    {
+      "id": 3,
+      "productName": "Пальто",
+      "price": 30,
+      "img": "https://diamondelectric.ru/images/473/472469/palto_bonprix_1.jpg"
+    }
+  ]
+}
