@@ -11,6 +11,7 @@ let initialState: sidebarState = {
     { id: " ", navName: "Todo", to: "Todo" },
     { id: " ", navName: "Shop", to: "Shop" },
     { id: " ", navName: "Gifs", to: "Gifs" },
+    { id: " ", navName: "Quiz", to: "Quiz" },
   ],
 };
 

@@ -8,6 +8,8 @@ import Loader from "./Components/Loader/Loader";
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Gifs from "./Components/Gifs/Gifs";
+
+const Quiz = lazy(() => import("./Components/Quiz/Quiz"));
 const ProfileContainer = lazy(() =>
   import("./Components/Profile/ProfileContainer")
 );
@@ -62,6 +64,7 @@ const App = () => {
               <Route path="/shop/" element={<ShopContainer />} />
               <Route path="/shop/:shopId" element={<ProductDetail />} />
               <Route path="/Gifs" element={<Gifs />} />
+              <Route path="/Quiz" element={<Quiz />} />
               <Route
                 path="/login"
                 element={
