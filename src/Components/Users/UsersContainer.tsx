@@ -14,7 +14,7 @@ const UsersContainer: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [pageSize, setPageSize] = useState(4); // Количество пользователей на странице
+  const [pageSize, setPageSize] = useState(8); // Количество пользователей на странице
   const [isLoading, setIsLoading] = useState(false); // Состояние для отображения загрузки\
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 

@@ -7,6 +7,7 @@ import Loader from "./Components/Loader/Loader";
 
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
+import Gifs from "./Components/Gifs/Gifs";
 const ProfileContainer = lazy(() =>
   import("./Components/Profile/ProfileContainer")
 );
@@ -25,6 +26,7 @@ const ShopContainer = lazy(() => import("./Components/Shop/ShopContainer"));
 const ProductDetail = lazy(() =>
   import("./Components/Shop/ProductDetail/ProductDetail")
 );
+const Board = lazy(() => import("./Components/Gifs/Gifs"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -59,6 +61,7 @@ const App = () => {
               <Route path="/todo" element={<TodoContainer />} />
               <Route path="/shop/" element={<ShopContainer />} />
               <Route path="/shop/:shopId" element={<ProductDetail />} />
+              <Route path="/Gifs" element={<Gifs />} />
               <Route
                 path="/login"
                 element={
