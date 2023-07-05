@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-import s from "./MyPosts.module.css";
-import Post from "./Post/Post";
+import { Button, Input, List, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addPost,
@@ -8,6 +7,10 @@ import {
   updateNewPostText,
 } from "../../../Redux/profileReducer";
 import { RootState } from "../../../Redux/redux-store";
+import Post from "./Post/Post";
+
+const { TextArea } = Input;
+const { Title } = Typography;
 
 const MyPostsContainer: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,44 +18,66 @@ const MyPostsContainer: React.FC = () => {
   const newPostText = useSelector(
     (state: RootState) => state.profile.newPostText
   );
-  let postElement = postData.map((el) => {
-    return (
-      <Post
-        key={el.id}
-        message={el.message}
-        like={el.likes}
-        deletePost={() => dispatch(deletePost(el.id))}
-      />
-    );
-  });
 
-  let onAddPost = () => {
+  const onAddPost = () => {
     dispatch(addPost());
   };
 
-  let newPostTextArea = useRef<HTMLTextAreaElement>(null);
+  const newPostTextArea = useRef<any>(null);
 
-  let onPostChange = () => {
-    let text = newPostTextArea.current!.value;
+  const onPostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
     dispatch(updateNewPostText(text));
   };
 
   return (
-    <div className={s.postsBlock}>
-      <h2>My post</h2>
+    <div>
+      <Title level={3}>My Posts</Title>
       <div>
-        <div>
-          <textarea
-            onChange={onPostChange}
-            ref={newPostTextArea}
-            value={newPostText}
-          />
-        </div>
-        <button onClick={onAddPost}>Add post</button>
+        <TextArea
+          onChange={onPostChange}
+          ref={newPostTextArea}
+          value={newPostText}
+          autoSize={{ minRows: 2, maxRows: 6 }}
+        />
       </div>
-      <div className={s.posts}>{postElement}</div>
+      <div>
+        <Button type="primary" onClick={onAddPost}>
+          Add Post
+        </Button>
+      </div>
+      <div>
+        <List
+          itemLayout="vertical"
+          size="large"
+          dataSource={postData}
+          renderItem={(el) => (
+            <List.Item>
+              <Post
+                key={el.id}
+                message={el.message}
+                like={el.likes}
+                deletePost={() => dispatch(deletePost(el.id))}
+              />
+            </List.Item>
+          )}
+        />
+      </div>
     </div>
   );
 };
+
+//Так было до введения antd
+/* 
+let postElement = postData.map((el) => {
+  return (
+    <Post
+      key={el.id}
+      message={el.message}
+      like={el.likes}
+      deletePost={() => dispatch(deletePost(el.id))}
+    />
+  );
+}); */
 
 export default MyPostsContainer;

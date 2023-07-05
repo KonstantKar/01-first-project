@@ -1,16 +1,16 @@
-.single-news-container {
+.singleNewsContainer {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.single-news-title {
+.singleNewsTitle {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.single-news-body {
+.singleNewsBody {
   font-size: 16px;
   line-height: 1.5;
 }

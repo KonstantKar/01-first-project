@@ -2,7 +2,7 @@ import React from "react";
 import Loader from "../../Loader/Loader";
 import s from "./SingleNews.module.css";
 import { newsData } from "../../../Redux/types";
-
+import { Typography } from "antd";
 interface SingleNewsProps {
   state: newsData | null;
 }
@@ -14,8 +14,12 @@ const SingleNews: React.FC<SingleNewsProps> = (props) => {
 
   return (
     <div className={s.singleNewsContainer}>
-      <h2 className={s.singleNewsTitle}>{props.state.title}</h2>
-      <div className={s.singleNewsBody}>{props.state.body}</div>
+      <Typography.Title className={s.singleNewsTitle} level={2}>
+        {props.state.title}
+      </Typography.Title>
+      <Typography.Paragraph className={s.singleNewsBody}>
+        {props.state.body}
+      </Typography.Paragraph>
     </div>
   );
 };

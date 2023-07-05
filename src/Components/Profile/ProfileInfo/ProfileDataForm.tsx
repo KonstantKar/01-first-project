@@ -5,6 +5,7 @@ import s from "./ProfileInfo.module.css";
 import { useDispatch } from "react-redux";
 import { changeContactsTC } from "../../../Redux/profileReducer";
 import { ContactProps } from "./ProfileInfo";
+import { Input, Button, Checkbox } from "antd";
 
 interface ProfileDataFormProps {
   profile: any;
@@ -45,27 +46,26 @@ const ProfileDataForm: React.FC<ProfileDataFormProps> = ({
           <div className={s.descriptionBlock}>
             <div className={s.fullName}>
               <label htmlFor="fullName">Полное имя:</label>
-              <Field type="text" name="fullName" />
+              <Field as={Input} name="fullName" />
               <ErrorMessage name="fullName" component="div" />
             </div>
             <div className={s.aboutMe}>
               <label htmlFor="aboutMe">Обо мне:</label>
-              <Field type="text" name="aboutMe" />
+              <Field as={Input} name="aboutMe" />
               <ErrorMessage name="aboutMe" component="div" />
             </div>
             <div className={s.aboutMe}>
               <b>Ищу работу?</b>:
-              <Field name="lookingForAJob" type="checkbox" />
+              <Field as={Checkbox} name="lookingForAJob" />
               <ErrorMessage name="lookingForAJob" component="div" />
             </div>
             <div className={s.aboutMe}>
               <b>Знания и умения</b>:
               <Field
+                as={Input.TextArea}
                 name="lookingForAJobDescription"
-                type="text"
-                as="textarea"
                 rows={4}
-                disabled={profile.lookingForAJob}
+                disabled={!profile.lookingForAJob}
               />
               <ErrorMessage name="lookingForAJobDescription" component="div" />
             </div>
@@ -75,13 +75,15 @@ const ProfileDataForm: React.FC<ProfileDataFormProps> = ({
                 return (
                   <div key={key}>
                     <label htmlFor={`contacts.${key}`}>{key}:</label>
-                    <Field type="text" name={`contacts.${key}`} />
+                    <Field as={Input} name={`contacts.${key}`} />
                     <ErrorMessage name={`contacts.${key}`} component="div" />
                   </div>
                 );
               })}
               <div>
-                <button type="submit">Сохранить изменения</button>
+                <Button type="primary" htmlType="submit">
+                  Сохранить изменения
+                </Button>
               </div>
             </div>
           </div>

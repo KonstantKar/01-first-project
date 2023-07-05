@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { followTC, unFollowTC } from "../../../Redux/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/redux-store";
+import { Button, Typography } from "antd";
 
 interface UsersCompProps {
   id: number;
@@ -38,15 +39,15 @@ const UsersComp: React.FC<UsersCompProps> = (props) => {
         {!hideButton &&
           // Проверка состояний loading и hideButton перед отображением кнопки
           (props.followed ? (
-            <button onClick={unFollow}>Unfollow</button>
+            <Button onClick={unFollow}>Unfollow</Button>
           ) : (
-            <button onClick={follow}>Follow</button>
+            <Button onClick={follow}>Follow</Button>
           ))}
       </div>
       <span>
         <span>
-          <div>{props.fullName}</div>
-          <div>{props.status}</div>
+          <Typography.Title level={5}>{props.fullName}</Typography.Title>
+          <Typography.Title level={5}>{props.status}</Typography.Title>
         </span>
       </span>
       <span>

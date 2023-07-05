@@ -3,7 +3,7 @@ import NewsComp from "./NewsComp/NewsComp";
 import Loader from "../Loader/Loader";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/redux-store";
-
+import { List } from "antd";
 const News = () => {
   const news = useSelector((state: RootState) => state.news.news);
 
@@ -16,9 +16,9 @@ const News = () => {
   });
 
   return (
-    <div>
+    <List>
       <div>{newsElements}</div>
-    </div>
+    </List>
   );
 };
 

@@ -1,15 +1,15 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStatusTC } from "../../../Redux/profileReducer";
 import { RootState } from "../../../Redux/redux-store";
+import { Input } from "antd";
 
 const ProfileStatus: React.FC = () => {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useDispatch();
   const status = useSelector((state: RootState) => state.profile.status);
 
-  const onStatusChange = (e: any) => {
+  const onStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch<any>(updateStatusTC(e.target.value));
   };
 
@@ -23,9 +23,9 @@ const ProfileStatus: React.FC = () => {
         </div>
       ) : (
         <div>
-          <input
+          <Input
             onChange={onStatusChange}
-            autoFocus={true}
+            autoFocus
             onBlur={() => setEditMode(false)}
             value={status}
           />
@@ -34,4 +34,5 @@ const ProfileStatus: React.FC = () => {
     </div>
   );
 };
+
 export default ProfileStatus;
